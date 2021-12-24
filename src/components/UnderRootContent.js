@@ -64,7 +64,7 @@ const UnderRootContent = () => {
         <>
             <MainHeader />
             <Routes>
-                <Route path="" element={ <Main /> }>
+                <Route path="/*" element={ <Main /> }>
                     <Route index element={ <LandPage /> } />
                     <Route path="login" element={ user ? <Navigate replace to="/home" /> : <Login /> } />
                     <Route path="register" element={ user ? <Navigate replace to="/home" /> : <Register /> } />

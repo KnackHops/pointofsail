@@ -1,15 +1,56 @@
 header {
     height: 6rem;
     background-color: rgba(0, 0, 0, .2);
+    padding: 0 2rem;
 }
 
 div.header-icon-con {
+    position: relative;
     align-items: center;
     font-size: 1.5rem;
     padding: 0 1rem;
+    background-color: chartreuse;
 }
 
 div.header-sections-con {
     background-color: rosybrown;
     flex: 1;
 }
+
+/* div.header-icon-con > h1 {
+    transform: rotateY(90deg);
+} */
+
+div.header-icon-con > div {
+    position: absolute;
+}
+/* for animation demo */
+
+/* div.header-icon-con > div.header-point-generator {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 5rem;
+    background-color: black;
+    left: 4rem;
+}
+
+div.header-icon-con > div.header-sail-generator {
+    height: 1.5rem;
+    width: 6rem;
+    background-color: black;
+    right: 4rem;
+    bottom: .5rem;
+    border-bottom-left-radius: 4rem;
+    border-bottom-right-radius: 4rem;
+}
+
+div.header-sail-generator::before {
+    content: "";
+    position: absolute;
+    height: 2.75rem;
+    width: 3rem;
+    background-color: black;
+    top: -3rem;
+    right: 2rem;
+    border-top-left-radius: 3rem;
+} */

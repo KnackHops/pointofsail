@@ -7,8 +7,8 @@ const Main = () => {
             <Routes>   
             {
                 [ "home", "profile/*", "establishment/*", "subscription/*" ]
-                .map( _path => {
-                    return <Route path={ _path } element={ <AsideNav /> } />
+                .map( ( _path, i ) => {
+                    return <Route path={ _path } element={ <AsideNav /> } key={ i }/>
                 } )
             }
             </Routes>

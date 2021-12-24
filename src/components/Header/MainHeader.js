@@ -15,8 +15,12 @@ const MainHeader = () => {
     return (
         <header className="fd">
             <div className="header-icon-con fd">
+                <div className="header-point-generator" />
+                <div className="header-sail-generator" />
                 <h1>
-                    <Link to="">Point of Sail</Link>
+                    <Link to={""} title="go to landpage">
+                        Point of Sail
+                    </Link>
                 </h1>
             </div>
             {

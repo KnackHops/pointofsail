@@ -1,0 +1,16 @@
+aside.aside-nav-con {
+    background-color: slategray;
+    height: 4rem;
+    margin: 2rem 0;
+    font-size: 2rem;
+}
+
+aside.aside-nav-con > nav.aside-nav, aside.aside-nav-con ul {
+    height: 100%;
+}
+
+aside.aside-nav-con ul {
+    padding: 0 5rem;
+    justify-content: space-between;
+    align-items: center;
+}

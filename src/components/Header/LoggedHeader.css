@@ -3,29 +3,92 @@ div.header-sections-con.logged-hsects-con {
     width: 100%;
 }
 
+div.-profile-panel-btn-con, div.home-icon-con {
+    align-items: center;
+    padding: 0 1rem;
+}
+
+div.-profile-panel-btn, div.home-icon-btn {
+    position: relative;
+    height: 4rem;
+    width: 4rem;
+    border: .25rem solid rgba(0, 0, 0, .25);
+    background-color: seagreen;
+    border-radius: 5rem;
+}
+
+div.-profile-panel-btn-con.-open-btn > div::before, 
+div.-profile-panel-btn-con.-open-btn > div::after {
+    background-color: slateblue;
+}
+
+div.-profile-panel-btn-con.-open-btn > div {
+    background-color: slategray;
+}
+
+div.-profile-panel-btn::before, 
+div.-profile-panel-btn::after, 
+div.home-icon-btn::before,
+div.home-icon-btn::after {
+    content: "";
+    position: absolute;
+}
+
+div.home-icon-btn::before {
+    right: calc(50% - 1.25rem);
+    top: 55%;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    height: 1.5rem;
+    width: 2.5rem;
+    background-color: skyblue;
+}
+
+div.home-icon-btn::after {
+    height: 0;
+    top: 6%;
+    right: .25rem;
+    border-bottom: 1.5rem solid skyblue;
+    border-right: 1.6rem solid transparent;
+    border-left: 1.6rem solid transparent;
+}
+
+div.-profile-panel-btn::before {
+    right: calc(50% - .5rem);
+    top: 5%;
+    height: 1.25rem;
+    width: 1.25rem;
+    border-radius: 2rem;
+    background-color: skyblue;
+}
+
+div.-profile-panel-btn::after {
+    right: calc(50% - .65rem);
+    top: 45%;
+    height: 2rem;
+    width: 1.5rem;
+    background-color: skyblue;
+    border-radius: 2rem;
+}
+
 nav.-logged-nav {
     position: absolute;
-    background-color: green;
+    background-color: seagreen;
     top: 6rem;
-    right: 0;
+    right: 2rem;
     font-size: 1.5rem;
     padding: 0 1rem;
     width: 11rem;
-    height: 0;
+    height: 8rem;
+}
+
+nav.-logged-nav.-close {
+    visibility: hidden;
 }
 
 nav.-logged-nav.-open {
     height: 14rem;
-    transition: all .25s ease-out;
-}
-
-nav.-logged-nav.-close li > p {
-    opacity: 1;
-}
-
-nav.-logged-nav.-open li > p {
-    opacity: 1;
-    transition: all .35s ease-out;
+    transition: all .1s ease-out;
 }
 
 nav.-logged-nav > ul.header-nav-list {

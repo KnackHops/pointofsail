@@ -3,30 +3,40 @@ import AnyList from "../../non-hooks/AnyList"
 import { UserContext } from "../UnderRootContent"
 import './HeaderNav.css';
 
-const HeaderNav = ( { isLogged, panelOpen = "none" } ) => {
+const HeaderNav = ( { isLogged, panelOpen = "none", handler = null } ) => {
     const { logOutHandler } = useContext( UserContext );
+    const { user } = useContext( UserContext );
     
     const loggedArr = useMemo( () => {
         return [
             {
                 label: "Profile",
                 whichEl: "navlink",
+                parentsPara: {
+                    onClick: handler
+                },
                 passPara: {
-                    to: "/profile"
+                    to: `/profile/user/${ user?.username }`
                 }
             },
             {
                 label: "Subscription",
                 whichEl: "navlink",
+                parentsPara: {
+                    onClick: handler
+                },
                 passPara: {
-                    to: "/subscription"
+                    to: `/profile/user/${ user?.username }/subscription`
                 }
             },
             {
                 label: "Payment",
                 whichEl: "navlink",
+                parentsPara: {
+                    onClick: handler
+                },
                 passPara: {
-                    to: "/subscription/payment"
+                    to: `/profile/user/${ user?.username }/payment`
                 }
             },
             {
@@ -42,7 +52,7 @@ const HeaderNav = ( { isLogged, panelOpen = "none" } ) => {
                 }
             }
         ]
-    }, [ logOutHandler ] )
+    }, [ logOutHandler, handler, user ] )
 
     const notLoggedArr = useMemo( () => {
         return [

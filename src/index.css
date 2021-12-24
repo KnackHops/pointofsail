@@ -50,3 +50,7 @@ ul {
 .gd {
   display: grid;
 }
+
+.-div-btn {
+  cursor: pointer;
+}

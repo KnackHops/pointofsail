@@ -33,11 +33,34 @@ const curRouteIndexes = [
     }
 ]
 
+const subRouteIndexes = {
+    "profile": [
+        {
+            paths: "/companions",
+            processed: "companions"
+        },
+        {
+            paths: "/subscription",
+            processed: "subscription"
+        },
+        {
+            paths: "/payment",
+            processed: "payment"
+        }
+    ],
+    "establishment": [
+        {
+            paths: "lishment/own",
+            processed: "own"
+        }
+    ]
+}
+
 const RouteContext = createContext();
 
 const LocationMonitor = ( { children } ) => {
     const [ curRoute, setCurRoute ] = useState( initCur );
-    const [ subRoute ] = useState("")
+    const [ subRoute, setSubRoute ] = useState("")
 
     const { pathname } = useLocation();
 
@@ -64,16 +87,37 @@ const LocationMonitor = ( { children } ) => {
                 /* if foundCurRoute is true from the filter above this will then hit */
                 /* sets the curRoute to the appropriate data */
                 if ( foundCurRoute ) {
+
+                    let capitalized = processed.charAt(0).toUpperCase() + processed.slice(1)
+
                     setCurRoute( {
                         processed,
-                        capitalized: processed.charAt(0).toUpperCase + processed.slice(1),
+                        capitalized,
                         raw: pathname
                      } )
+
+                     let foundSubRoute = false;
+
+                     if ( processed in subRouteIndexes ) {
+
+                         subRouteIndexes[ processed ].forEach( _sub => {
+                             if ( pathname.includes( _sub.paths ) ) {
+                                 setSubRoute( _sub.processed );
+                                 foundSubRoute = true;
+                             }
+                         } )
+                     }
+
+                     if ( !foundSubRoute && subRoute ) setSubRoute( "" );
                 }
 
             })
 
         } )
+
+        if ( !foundCurRoute ) {
+            if ( subRoute ) setSubRoute("")
+        }
     }
 
     useEffect( () => {
