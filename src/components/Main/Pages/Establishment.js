@@ -1,11 +1,27 @@
+import { useContext, useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { provideEstablishmentData } from "../../../tempFolder/temp";
 import SectionWrappers from "../../../wrappers/SectionWrappers"
+import { UserContext } from "../../UnderRootContent";
+import EstablishmentList from "./EstablishmentList";
+import EstablishmentPage from "./EstablishmentPage";
 
 const Establishment = () => {
+    const { user } = useContext( UserContext );
+    const [ establishments, setEstablishments ] = useState( [] );
+
+    useEffect( () => {
+        const esList = provideEstablishmentData(user.id);
+        setEstablishments( esList )
+    }, [] )
+
     return (
         <SectionWrappers>
-            <p>
-                Establishment
-            </p>
+            <h1>Establishment</h1>
+            <Routes>
+                <Route path={"own"} element={ <EstablishmentList establishments={ establishments } /> }/>
+                <Route path={"id:establishment_id/*"} element={ <EstablishmentPage establishments={ establishments }/> }/>
+            </Routes>
         </SectionWrappers>
     )
 }

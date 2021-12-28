@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import useUserCheck from "../hooks/useUserChecks";
+import { login_data, user_data } from "../tempFolder/temp";
 import MainHeader from "./Header/MainHeader";
 import Main from "./Main/Main";
 import Establishment from "./Main/Pages/Establishment";
@@ -34,12 +35,34 @@ const UnderRootContent = () => {
     }
 
     const logInHandler = ( { username, password } ) => {
+        const _username = username.toLowerCase();
         const usernameChk = generalCheck( username, "username" );
         const passwordChk = generalCheck( password, "password" );
         
         const successChk = checkMachine( [ usernameChk, passwordChk ] );
 
-        if ( successChk ) setUser( { username, password } )
+        let _found_password;
+        let _found_id;
+
+        if ( successChk ) {
+            login_data.forEach( log_user => {
+                if ( log_user.username === _username ) {
+                    _found_id = log_user.userid
+                    _found_password = log_user.password;
+                }
+            } )
+        }
+
+        if ( _found_password ) {
+            if ( _found_password !== password ) window.alert("Password is incorrect!")
+            else {
+                let _user = user_data.find( ( { id } ) => id === _found_id );
+
+                _user = { username, ..._user }
+
+                setUser( _user );
+            }
+        } else window.alert("username does not exists!");
     }
 
     const logOutHandler = () => {

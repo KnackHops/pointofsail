@@ -7,8 +7,8 @@ const Profile = () => {
 
     return (
         <SectionWrappers>
-            <p>Profile</p>
-            { subRoute }
+            <h1>Profile</h1>
+            <p>{ subRoute || "origin" }</p>
         </SectionWrappers>
     )
 }
