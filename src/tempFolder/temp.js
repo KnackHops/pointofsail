@@ -62,7 +62,7 @@ const products_data = [
 const sales_data = [
     {
         id: 0,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-02",
         base_price_sale: 10,
         gross_price_sale: 12,
@@ -70,7 +70,7 @@ const sales_data = [
     },
     {
         id: 1,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-05",
         base_price_sale: 10,
         gross_price_sale: 12,
@@ -78,7 +78,7 @@ const sales_data = [
     },
     {
         id: 2,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-12",
         base_price_sale: 8,
         gross_price_sale: 12,
@@ -86,7 +86,7 @@ const sales_data = [
     },
     {
         id: 3,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-16",
         base_price_sale: 8,
         gross_price_sale: 12,
@@ -94,7 +94,7 @@ const sales_data = [
     },
     {
         id: 4,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-18",
         base_price_sale: 10,
         gross_price_sale: 12,
@@ -102,7 +102,7 @@ const sales_data = [
     },
     {
         id: 5,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-22",
         base_price_sale: 10,
         gross_price_sale: 12,
@@ -110,7 +110,7 @@ const sales_data = [
     },
     {
         id: 6,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-23",
         base_price_sale: 10,
         gross_price_sale: 12,
@@ -118,7 +118,7 @@ const sales_data = [
     },
     {
         id: 7,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-24",
         base_price_sale: 10,
         gross_price_sale: 12,
@@ -126,7 +126,7 @@ const sales_data = [
     },
     {
         id: 8,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-25",
         base_price_sale: 10,
         gross_price_sale: 12,
@@ -134,7 +134,7 @@ const sales_data = [
     },
     {
         id: 9,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-26",
         base_price_sale: 10,
         gross_price_sale: 12,
@@ -142,7 +142,7 @@ const sales_data = [
     },
     {
         id: 10,
-        productid: 0,
+        product_id: 0,
         date: "2021-12-27",
         base_price_sale: 10,
         gross_price_sale: 12,
@@ -179,19 +179,6 @@ const provideEstablishmentData = ( userid = "none", establishment_id="none" ) =>
 
             products_data.forEach( prod => {
                 if ( prod.establishment_id === ret.establishment_id ) {
-                    let product_sale = []
-
-                    sales_data.forEach( sale => {
-                        if ( sale.productid === prod.id ) {
-                            product_sale.push({
-                                sales_id: sale.id,
-                                date: sale.date,
-                                base_price_sale: sale.base_price_sale,
-                                gross_price_sale: sale.gross_price_sale,
-                                quantity_sale: sale.quantity_sale
-                            })
-                        }
-                    } )
 
                     products.push({
                         product_id: prod.id,
@@ -200,8 +187,7 @@ const provideEstablishmentData = ( userid = "none", establishment_id="none" ) =>
                         qrcode: prod.qrcode,
                         base_price: prod.base_price,
                         gross_price: prod.gross_price,
-                        product_quantity: prod.quantity,
-                        product_sale
+                        product_quantity: prod.quantity
                     })
                 }
             } )
@@ -215,4 +201,49 @@ const provideEstablishmentData = ( userid = "none", establishment_id="none" ) =>
     }
 }
 
-export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData }
+const provideSale = ( idContainer ) => {
+    let establishment_id_arr = [];
+
+    if ( "userid" in idContainer ) {
+
+        employee_data.forEach( emp => {
+
+            if ( emp.userid === idContainer.userid ) establishment_id_arr.push( emp.establishment_id )
+
+        } )
+
+    } 
+    else if ( "establishment_id" in idContainer ) establishment_id_arr.push( idContainer.establishment_id )
+
+    let prod_id_arr = []
+
+    if ( "product_id" in idContainer ) prod_id_arr.push( idContainer.product_id )
+    else {
+        establishment_id_arr.forEach( est_id => {
+    
+            products_data.forEach( prod => {
+    
+                if ( est_id === prod.establishment_id ) prod_id_arr.push( prod.id )
+    
+            } )
+        } )
+    }
+
+    /* checks if product id arr has something, else, return empty */
+    if ( !prod_id_arr.length ) return []
+
+    let salesInfo = [];
+
+    prod_id_arr.forEach( prod_id => {
+
+        sales_data.forEach( sale => {
+
+            if ( sale.product_id === prod_id ) salesInfo.push( sale )
+
+        } )
+    } )
+
+    return salesInfo;
+} 
+
+export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale }

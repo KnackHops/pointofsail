@@ -14,3 +14,13 @@ aside.aside-nav-con ul {
     justify-content: space-between;
     align-items: center;
 }
+
+@media only screen and ( max-width: 650px ) {
+    aside.aside-nav-con {
+        font-size: 1.5rem;
+    }
+
+    aside.aside-nav-con ul {
+        padding: 0 2.5rem;
+    }
+}

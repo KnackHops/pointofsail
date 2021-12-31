@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RouteContext } from "../../wrappers/LocationMonitor";
 import HeaderNav from "./HeaderNav";
 import './LoggedHeader.css'
+import Scanner from "./Scanner";
 
 const LoggedHeader = () => {
     const [ panelOpen, setPanelOpen ] = useState( false );
@@ -17,12 +18,13 @@ const LoggedHeader = () => {
     return (
         <>
             {
-                curRoute.processed === "landpage" &&
+                curRoute.processed === "landpage" ?
                 <div className="home-icon-con fd">
                     <Link to="/home" aria-label="Home" title="home">
                         <div className="home-icon-btn"></div>
                     </Link>
-                </div>
+                </div> :
+                <Scanner />
             }
             <div className={`-profile-panel-btn-con fd ${ panelOpen ? "-open-btn" : "-close-btn" }`}>
                 <div onClick={ panelHandler } className="-profile-panel-btn -div-btn" title="open panel">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { provideSale } from "../../../tempFolder/temp";
 import SalesGraph from "./SalesGraph";
 import SalesList from "./SalesList";
 
@@ -24,8 +25,14 @@ const ProductPage = ( { productList } ) => {
         setProduct( _product )
     }, [ product_id ] )
 
+    const [ productSale, setProductSale ] = useState( null );
+
     useEffect( () => {
-        console.log( product )
+        if ( product ) {
+            const sales = provideSale( { "product_id": product.product_id } )
+
+            setProductSale( sales )
+        }
     }, [ product ] )
 
     return (
@@ -35,8 +42,8 @@ const ProductPage = ( { productList } ) => {
                     product?.product_name
                 }
             </h3>
-            <SalesGraph productSale={ product?.product_sale || null }/>
-            <SalesList productSale={ product?.product_sale || null } />
+            <SalesGraph productSale={ productSale }/>
+            <SalesList parentProductSale={ productSale } />
         </div>
     )
 }

@@ -1,0 +1,12 @@
+div.scanner-con {
+    position: absolute;
+    right: .5rem;
+    bottom: .5rem;
+}
+
+div.scanner-con button {
+    border-radius: 10rem;
+    background-color: blanchedalmond;
+    height: 6.5rem;
+    width: 6.5rem
+}
