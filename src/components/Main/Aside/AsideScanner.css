@@ -1,0 +1,7 @@
+Aside.aside-scanner-con {
+    position: absolute;
+    height: 40rem;
+    width: 30rem;
+    background-color: blanchedalmond;
+    z-index: 2;
+}

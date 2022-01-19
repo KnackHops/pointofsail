@@ -4,6 +4,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 code {
@@ -21,6 +22,39 @@ html {
   font-size: 62.5%;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 html, body, #root, #under_root {
   width: 100%;
+}
+
+button {
+  border: .1rem solid black;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+.fd {
+  display: flex;
+}
+
+.gd {
+  display: grid;
+}
+
+.-div-btn {
+  cursor: pointer;
 }
