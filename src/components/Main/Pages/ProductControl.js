@@ -31,9 +31,7 @@ const ProductControl = () => {
     } )
 
     return (
-        <DynamicControl dynamicClass={ "product" }>
-
-        </DynamicControl>
+        <div></div>
     )
 }
 

@@ -11,6 +11,7 @@ const ProductPage = ( { productList } ) => {
 
     useEffect( () => {
         let _product;
+
         productList.forEach( prod => {
             if ( prod.product_id === Number( product_id ) ) {
                 _product = prod;
@@ -42,7 +43,7 @@ const ProductPage = ( { productList } ) => {
                     product?.product_name
                 }
             </h3>
-            <SalesGraph productSale={ productSale }/>
+            <SalesGraph productSale={ productSale } parentProductSale={ null ? "none" : productSale }/>
             <SalesList parentProductSale={ productSale } />
         </div>
     )

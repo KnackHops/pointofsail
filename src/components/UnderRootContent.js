@@ -15,6 +15,7 @@ import Subscription from "./Main/Pages/Subscription";
 
 const UserContext = createContext();
 const MenuContext = createContext();
+const FunctionContext = createContext();
 
 const UnderRootContent = () => {
     const [ user, setUser ] = useState( null );
@@ -24,13 +25,11 @@ const UnderRootContent = () => {
     const checkMachine = arr => {
         let foundError = false;
 
-        arr.forEach( chk => {
+        arr.forEach( ( { status } ) => {
             if ( foundError ) return
+            else foundError = !status.ok;
 
-            if ( !chk.status.ok ) {
-                foundError = true;
-                window.alert( chk.status.description )
-            }
+            if ( foundError ) window.alert( status.description );
         } )
 
         return !foundError
@@ -64,7 +63,9 @@ const UnderRootContent = () => {
 
                 setUser( _user );
             }
-        } else window.alert("username does not exists!");
+        } else if ( successChk ) {
+            window.alert("username does not exists!");
+        }
     }
 
     const logOutHandler = () => {
@@ -96,9 +97,91 @@ const UnderRootContent = () => {
         if ( scannerOpen ) scannerMenuHandler();
     }, [ curRoute ] )
 
+    const getDateDifference = ( predefDate = false, numberOfDays = null ) => {
+        let _dt = new Date();
+        let curDay;
+        let _year;
+        let _month;
+
+        if ( predefDate ) {
+            curDay = predefDate?.day;
+            _year = predefDate?.year;
+            _month = predefDate?.month;
+        } else {
+            curDay = _dt.getDate();
+            _year = _dt.getFullYear();
+            _month = _dt.getMonth() + 1;
+        }
+
+        let daysInMonth = new Date( _year, _month, 0 ).getDate();
+
+        let prevDaysInMonth = null;
+        let prevYear;
+        let prevMonth;
+
+        // if number of days AND
+        // curDay < numberOfDays AND month !== 1
+        // OR
+        // if not number of days AND
+        // days in month > curDay AND month !== 1
+        
+        if ( ( numberOfDays && ( curDay < numberOfDays && _month !== 1 ) ) 
+            || 
+            ( !numberOfDays && ( daysInMonth > curDay && _month !== 1 ) ) ) 
+        {
+            prevYear = _year;
+            prevMonth = _month - 1;
+        }
+
+        // if number of days AND
+        // curDay < numberOfDays AND month === 1
+        // OR
+        // if not number of days AND
+        // days in month > curDay AND month === 1
+
+        if ( ( numberOfDays && ( curDay < numberOfDays && _month === 1 ) ) 
+            || 
+            ( !numberOfDays && ( daysInMonth > curDay && _month === 1 ) ) ) 
+        {
+            prevYear = _year - 1;
+            prevMonth = 12;
+        }
+        if ( prevYear && prevMonth ) prevDaysInMonth = new Date( prevYear, prevMonth, 0 ).getDate();
+
+        let returnDate = [];
+        let startComp = 1;
+
+        if ( prevDaysInMonth ) {
+            let startDay;
+
+            if ( numberOfDays ) {
+                startDay = ( prevDaysInMonth + 1 ) - ( numberOfDays - curDay )
+            } else {
+                startDay = ( prevDaysInMonth + 1 ) - ( daysInMonth - curDay )
+            }
+
+            for ( let x = startDay; x <= prevDaysInMonth; x++ ) {
+                returnDate.push( {
+                    date: `${ prevYear }-${ prevMonth }-${ x }`
+                } )
+            }
+        } else {
+            if ( numberOfDays ) startComp+=curDay - numberOfDays
+        }
+
+        for ( let x = startComp; x <= curDay; x++ ) {
+            returnDate.push( {
+                date: `${ _year }-${ _month }-${ x }`
+            } )
+        }
+
+        return returnDate;
+    }
+
     return (
         <MenuContext.Provider value={ { scannerOpen, scannerMenuHandler } }>
         <UserContext.Provider value={ { user, logInHandler, registerHandler, logOutHandler } }>
+        <FunctionContext.Provider value = { { getDateDifference } }>
         <>
             <MainHeader />
             <Routes>
@@ -113,10 +196,11 @@ const UnderRootContent = () => {
                 </Route>
             </Routes>
         </>
+        </FunctionContext.Provider>
         </UserContext.Provider>
         </MenuContext.Provider>
     )
 }
 
 export default UnderRootContent;
-export { UserContext, MenuContext };
+export { UserContext, MenuContext, FunctionContext };

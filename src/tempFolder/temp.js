@@ -30,6 +30,10 @@ const establishment_data = [
     {
         id: 0,
         name: "admin store"
+    },
+    {
+        id: 1,
+        name: "admin store 2"
     }
 ]
 
@@ -43,6 +47,16 @@ const employee_data = [
         userid: 1,
         establishment_id: 0,
         role: "employee"
+    },
+    {
+        userid: 0,
+        establishment_id: 1,
+        role: "employee"
+    },
+    {
+        userid: 1,
+        establishment_id: 1,
+        role: "owner"
     }
 ]
 
@@ -51,8 +65,18 @@ const products_data = [
         id: 0,
         establishment_id: 0,
         name: "coke",
-        barcode: "barcodeqr",
-        qrcode: "cokeqr",
+        barcode: "barcodecoke",
+        qrcode: "qrcoke",
+        base_price: 10,
+        gross_price: 12,
+        quantity: 20
+    },
+    {
+        id: 1,
+        establishment_id: 0,
+        name: "sprite",
+        barcode: "barcodesprite",
+        qrcode: "qrsprite",
         base_price: 10,
         gross_price: 12,
         quantity: 20
@@ -147,6 +171,14 @@ const sales_data = [
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 15
+    },
+    {
+        id: 11,
+        product_id: 1,
+        date: "2021-12-27",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 14
     }
 ]
 
@@ -201,7 +233,7 @@ const provideEstablishmentData = ( userid = "none", establishment_id="none" ) =>
     }
 }
 
-const provideSale = ( idContainer ) => {
+const provideSale = ( idContainer, orderBy="desc" ) => {
     let establishment_id_arr = [];
 
     if ( "userid" in idContainer ) {
@@ -237,10 +269,36 @@ const provideSale = ( idContainer ) => {
     prod_id_arr.forEach( prod_id => {
 
         sales_data.forEach( sale => {
-
-            if ( sale.product_id === prod_id ) salesInfo.push( sale )
-
+            if ( sale.product_id === prod_id ) salesInfo.push( {
+                sale_id: sale.id,
+                date: sale.date,
+                base_price_sale: sale.base_price_sale,
+                gross_price_sale: sale.gross_price_sale,
+                quantity_sale: sale.quantity_sale
+            } )
         } )
+
+    } )
+    let orderedSales = [];
+
+    orderedSales = salesInfo.sort( ( a, b ) => {
+        if ( a.date.slice( 5, 7 ) > b.date.slice( 5, 7 ) ) {
+            if ( orderBy === "asc" ) return -1
+            else return 1
+        }
+        if ( a.date.slice( 5, 7 ) < b.date.slice( 5, 7 ) ) {
+            if ( orderBy === "asc" ) return 1
+            else return -1
+        }
+        if ( a.date.slice(8) > b.date.slice(8) ) {
+            if ( orderBy === "asc" ) return -1
+            else return 1
+        }
+        if ( a.date.slice(8) < b.date.slice(8) ) {
+            if ( orderBy === "asc" ) return 1
+            else return -1
+        }
+        return 0
     } )
 
     return salesInfo;
