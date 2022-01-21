@@ -179,6 +179,110 @@ const sales_data = [
         base_price_sale: 10,
         gross_price_sale: 13,
         quantity_sale: 14
+    },
+    {
+        id: 12,
+        product_id: 0,
+        date: "2022-01-01",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 4
+    },
+    {
+        id: 13,
+        product_id: 0,
+        date: "2022-01-03",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 8
+    },
+    {
+        id: 14,
+        product_id: 0,
+        date: "2022-01-04",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 10
+    },
+    {
+        id: 15,
+        product_id: 0,
+        date: "2022-01-05",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 24
+    },
+    {
+        id: 16,
+        product_id: 0,
+        date: "2022-01-06",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 13
+    },
+    {
+        id: 17,
+        product_id: 0,
+        date: "2022-01-08",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 17
+    },
+    {
+        id: 18,
+        product_id: 0,
+        date: "2022-01-11",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 14
+    },
+    {
+        id: 19,
+        product_id: 0,
+        date: "2022-01-12",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 15
+    },
+    {
+        id: 20,
+        product_id: 0,
+        date: "2022-01-13",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 16
+    },
+    {
+        id: 21,
+        product_id: 0,
+        date: "2022-01-15",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 13
+    },
+    {
+        id: 22,
+        product_id: 0,
+        date: "2022-01-16",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 16
+    },
+    {
+        id: 22,
+        product_id: 0,
+        date: "2022-01-18",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 16
+    },
+    {
+        id: 22,
+        product_id: 0,
+        date: "2022-01-20",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 15
     }
 ]
 

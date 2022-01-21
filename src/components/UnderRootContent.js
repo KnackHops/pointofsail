@@ -171,7 +171,7 @@ const UnderRootContent = () => {
 
         for ( let x = startComp; x <= curDay; x++ ) {
             returnDate.push( {
-                date: `${ _year }-${ _month }-${ x }`
+                date: `${ _year }-${ _month < 10 ? "0" + _month : _month }-${ x < 10 ? "0" + x : x }`
             } )
         }
 

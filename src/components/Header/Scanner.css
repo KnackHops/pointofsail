@@ -2,6 +2,7 @@ div.scanner-con {
     position: fixed;
     right: .5rem;
     bottom: .5rem;
+    z-index: 9999;
 }
 
 div.scanner-con button {

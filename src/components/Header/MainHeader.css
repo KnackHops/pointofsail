@@ -1,7 +1,11 @@
 header {
     height: 6rem;
     background-color: rgba(0, 0, 0, .2);
-    padding: 0 4rem;
+    justify-content: center;
+}
+
+header > div.header-inside {
+    width: 1400px;
 }
 
 div.header-icon-con {

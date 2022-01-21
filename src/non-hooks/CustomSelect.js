@@ -31,7 +31,7 @@ const CustomSelect = ( { arrList=[], handler=null, classCustom="", idAppend="non
     return (
         <div className={`custom-select-con ${ classCustom }-select-con`} onClick={ () => setSelectOpen( !selectOpen ) }>
             <select className={ `select-hidden ${ classCustom }-select-hidden` } style={ { position: "fixed", left: "500px", visibility: "hidden" } }>
-                { arrList.map( item => <option id={ `select_item_value_${ idAppend }_${ item.value }` } value={ item?.value } > { item?.label } </option> ) }
+                { arrList.map( ( item, i ) => <option key={i} id={ `select_item_value_${ idAppend }_${ item.value }` } value={ item?.value } > { item?.label } </option> ) }
             </select>
             <div 
                 className="selected-value"
@@ -40,7 +40,7 @@ const CustomSelect = ( { arrList=[], handler=null, classCustom="", idAppend="non
             <div className={`select-list-con ${ selectOpen ? "-active" : "" }`}>
                 <div className="select-list-inside">
                     {
-                        arrList.map( item => <div className="select-item" data-display-text={ item?.label } onClick={ () => document.querySelector( `.${ classCustom }-select-hidden` ).value = item?.value }/> )
+                        arrList.map( ( item, i ) => <div key={ i } className="select-item" data-display-text={ item?.label } onClick={ () => document.querySelector( `.${ classCustom }-select-hidden` ).value = item?.value }/> )
                     }
                 </div>
             </div>

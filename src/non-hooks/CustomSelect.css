@@ -32,13 +32,20 @@ div.select-list-con
 {
     position: fixed;
     margin-top: 4rem;
-    background-color: rgba(0, 0, 0, .25);
+    margin-left: .65rem;
+}
+
+div.select-list-con.-active
+{
+    background-color: white;
+    border: .2rem solid rgba(0, 0, 0, 1);
     border-radius: .5rem;
 }
 
-div.select-list-con.-active div.select-item {
+div.select-list-con.-active div.select-item 
+{
     height: 2.5rem;
-    width: 18rem;
+    width: 16rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,6 +59,6 @@ div.select-list-con.-active div.select-item:after
 
 div.select-list-con.-active div.select-item:hover
 {
-    background-color: rgba(0, 0, 0, .25);
-    color: wheat;
+    background-color: rgba(0, 0, 0, .55);
+    color: white;
 }

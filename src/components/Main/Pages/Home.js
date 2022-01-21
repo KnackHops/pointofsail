@@ -10,7 +10,7 @@ const Home = () => {
             <h1> Home </h1>
             <h2> Sales </h2>
             <SaleControl />
-            <SalesGraph cSelect={ true } />
+            <SalesGraph cSelect={ true } nextPrevBtns={ true } />
             <ProductControl />
         </SectionWrappers>
     )

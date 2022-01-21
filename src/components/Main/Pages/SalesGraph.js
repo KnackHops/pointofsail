@@ -4,6 +4,7 @@ import CustomSelect from "../../../non-hooks/CustomSelect";
 import { provideSale } from "../../../tempFolder/temp";
 import { FunctionContext, UserContext } from "../../UnderRootContent";
 import './SalesGraph.css'
+import SalesGraphNextPrev from "./SalesGraphNextPrev";
 
 const selectListDays = [
     {
@@ -29,16 +30,16 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
     const [ daysToDisp, setDaysToDisp ] = useState( "fm" );
 
     useEffect( () => {
-        graphInfoMachine();
+        if ( currentDates.length ) graphInfoMachine();
     }, [ currentDates ] )
 
-    const datasSetter = () => {
+    const datasSetter = ( ) => {
         if ( !currentDates.length || daysToDisp === "fm" ) setCurrentDates( getDateDifference() );
         else setCurrentDates( getDateDifference( false, Number( daysToDisp ) ) )
     }
 
     useEffect( () => {
-        datasSetter();
+        if ( productSale ) datasSetter();
     }, [ daysToDisp ] )
 
     const graphInfoMachine = () => {
@@ -52,7 +53,7 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
         /* as to not muddy the chart with too much bars/lines */
         /* right now the graph can't handle multiple items */
         /* will adjust for that soon dot tm */
-        /* will have to make curdate dynamic soon tm*/ 
+        /* will have to make curdate dynamic soon tm */ 
 
         let labels = [];
         let datasets = [
@@ -76,7 +77,7 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
         let highestNet = 0;
 
         currentDates.forEach( _d => {
-            labels.push( _d.date );
+            labels.push( _d.date.slice( 2 ) );
 
             let found = false;
 
@@ -99,11 +100,15 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
                     // else, add an item to the array
                     if ( found ) {
                         let indexData = datasets[0].values.length -1;
+                        let foundGross = 0;
+                        let foundNet = 0;
 
                         datasets[0].values[ indexData ] = datasets[0].values[ indexData ] + base_price_sale;
                         datasets[1].values[ indexData ] = datasets[1].values[ indexData ] + gross_price_sale;
-                        datasets[2].values[ indexData ] = datasets[2].values[ indexData ] + gross;
-                        datasets[3].values[ indexData ] = datasets[3].values[ indexData ] + net;
+                        datasets[2].values[ indexData ] = foundGross = datasets[2].values[ indexData ] + gross;
+                        datasets[3].values[ indexData ] = foundNet = datasets[3].values[ indexData ] + net;
+                        if ( foundGross > highestGross ) highestGross = foundGross;
+                        if ( foundNet > highestNet ) highestNet = foundNet;
                     } else {
                         datasets[0].values.push( base_price_sale );
                         datasets[1].values.push( gross_price_sale );
@@ -151,17 +156,15 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
     }
 
     const checkProductSale = () => {
-        if ( parentProductSale === "none" && !productSale ) {
-            const sale = provideSale( { userid: user.id } );
-
-            setProductSale( sale );
-        } else {
-            if ( productSale ) {
-                graphInfoMachine();
+        if ( !productSale ) {
+            if ( parentProductSale === "none" ) {
+                const sale = provideSale( { userid: user.id } );
+    
+                setProductSale( sale );
             } else {
                 setProductSale( parentProductSale );
             }
-        }
+        } else datasSetter();
     }
 
     useEffect( () => {
@@ -169,11 +172,11 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
     }, [ parentProductSale, productSale ] )
 
     return (
-        <div className="sales-graph-con">
+        <div className={`sales-graph-con ${ daysToDisp === "fm" ? daysToDisp : "d" + daysToDisp }-length`}>
             { salesInfoDisplay &&
             <>
                 <ReactFrappeChart
-                    title="my dopest chart"
+                    title="Date: Y/M/D"
                     type="axis-mixed"
                     height={ 350 }
                     barOptions={ { spaceRation: .4 } }
@@ -184,26 +187,10 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
                 <div className="sales-graph-control fd">
                     { cSelect &&
                     <div className="sales-graph-days">
-                        <p> Days </p>
+                        <h4> Days: </h4>
                         <CustomSelect arrList={ selectListDays } handler={ val => setDaysToDisp( val ) } classCustom="sales-graph" />
                     </div> }
-                    { nextPrevBtns && 
-                    <>
-                    <div className="sales-graph-prev">
-                        <p>
-                            <button>
-                                Previous
-                            </button>
-                        </p>
-                    </div>
-                    <div className="sales-graph-prev">
-                        <p>
-                            <button>
-                                Next
-                            </button>
-                        </p>
-                    </div> 
-                    </> }
+                    { nextPrevBtns && <SalesGraphNextPrev /> }
                 </div>
             </> 
             }
