@@ -12,11 +12,11 @@ const selectListDays = [
     },
     {
         label: "7 days",
-        value: 7
+        value: "7"
     },
     {
         label: "14 days",
-        value: 14
+        value: "14"
     }
 ]
 
@@ -34,7 +34,7 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
 
     const datasSetter = () => {
         if ( !currentDates.length || daysToDisp === "fm" ) setCurrentDates( getDateDifference() );
-        else setCurrentDates( getDateDifference( false, daysToDisp ) )
+        else setCurrentDates( getDateDifference( false, Number( daysToDisp ) ) )
     }
 
     useEffect( () => {

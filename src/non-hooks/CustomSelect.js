@@ -10,10 +10,6 @@ const CustomSelect = ( { arrList=[], handler=null, classCustom="", idAppend="non
         if ( legacySelectVal !== selectedVal ) setSelectedVal( legacySelectVal );
     }, [ legacySelectVal ] )
 
-    useEffect( () => {
-        setSelectedVal( arrList[0].value );
-    }, [] )
-
     const [ selectOpen, setSelectOpen ] = useState( false );
 
     const optionSelector = () => {
