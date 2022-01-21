@@ -29,7 +29,7 @@ const CustomSelect = ( { arrList=[], handler=null, classCustom="", idAppend="non
     }, [ selectedVal ] )
 
     return (
-        <div className={`custom-select-con ${ classCustom }-select-con`} onClick={ () => setSelectOpen( !selectOpen ) }>
+        <div className={`custom-select-con ${ classCustom }-select-con ${ selectOpen ? "-active" : ""  } `} onClick={ () => setSelectOpen( !selectOpen ) }>
             <select className={ `select-hidden ${ classCustom }-select-hidden` } style={ { position: "fixed", left: "500px", visibility: "hidden" } }>
                 { arrList.map( ( item, i ) => <option key={i} id={ `select_item_value_${ idAppend }_${ item.value }` } value={ item?.value } > { item?.label } </option> ) }
             </select>

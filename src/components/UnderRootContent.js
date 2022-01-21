@@ -73,6 +73,10 @@ const UnderRootContent = () => {
         navigate( "/login" )
     }
 
+    const monthDayStrMod = val => {
+        return val < 10 ? "0" + val : val
+    }
+
     const registerHandler = ( { username, password, email, mobile, name } ) => {
         const nameChk = generalCheck( name, "name" );
         const usernameChk = generalCheck( username, "username" );
@@ -97,16 +101,26 @@ const UnderRootContent = () => {
         if ( scannerOpen ) scannerMenuHandler();
     }, [ curRoute ] )
 
-    const getDateDifference = ( predefDate = false, numberOfDays = null ) => {
+    const dateCompute = ( curDate, numberOfDays, whichDo ) => {
+        let dateFlow = true;
+        let dates = [];
+
+        while ( dateFlow ) {
+            
+            dateFlow = !dateFlow;
+        } 
+    }
+
+    const getDateDifference = ( predeterDate = null, numberOfDays = null, computeTo="sub" ) => {
         let _dt = new Date();
         let curDay;
         let _year;
         let _month;
 
-        if ( predefDate ) {
-            curDay = predefDate?.day;
-            _year = predefDate?.year;
-            _month = predefDate?.month;
+        if ( predeterDate ) {
+            curDay = predeterDate?.day;
+            _year = predeterDate?.year;
+            _month = predeterDate?.month;
         } else {
             curDay = _dt.getDate();
             _year = _dt.getFullYear();
@@ -162,7 +176,7 @@ const UnderRootContent = () => {
 
             for ( let x = startDay; x <= prevDaysInMonth; x++ ) {
                 returnDate.push( {
-                    date: `${ prevYear }-${ prevMonth }-${ x }`
+                    date: `${ prevYear }-${ monthDayStrMod( prevMonth ) }-${ monthDayStrMod( x ) }`
                 } )
             }
         } else {
@@ -171,7 +185,7 @@ const UnderRootContent = () => {
 
         for ( let x = startComp; x <= curDay; x++ ) {
             returnDate.push( {
-                date: `${ _year }-${ _month < 10 ? "0" + _month : _month }-${ x < 10 ? "0" + x : x }`
+                date: `${ _year }-${ monthDayStrMod( _month ) }-${ monthDayStrMod( x ) }`
             } )
         }
 

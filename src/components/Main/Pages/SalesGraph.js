@@ -3,8 +3,8 @@ import ReactFrappeChart from "react-frappe-charts";
 import CustomSelect from "../../../non-hooks/CustomSelect";
 import { provideSale } from "../../../tempFolder/temp";
 import { FunctionContext, UserContext } from "../../UnderRootContent";
-import './SalesGraph.css'
 import SalesGraphNextPrev from "./SalesGraphNextPrev";
+import './SalesGraph.css'
 
 const selectListDays = [
     {
@@ -12,12 +12,12 @@ const selectListDays = [
         value: "fm"
     },
     {
-        label: "7 days",
-        value: "7"
-    },
-    {
         label: "14 days",
         value: "14"
+    },
+    {
+        label: "7 days",
+        value: "7"
     }
 ]
 
@@ -171,6 +171,31 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
         checkProductSale();
     }, [ parentProductSale, productSale ] )
 
+    const dateGetter = ( indexDate = 0 ) => {
+        return [ 
+            currentDates[ indexDate ].date.slice( 0, 4 ), 
+            currentDates[ indexDate ].date.slice( 5, 7 ),
+            currentDates[ indexDate ].date.slice( 8 )
+        ].map( item => Number ( item ) );
+    }
+
+    const nextGraph = () => {
+        if ( !currentDates.length ) return
+
+    }
+
+    const prevGraph = () => {
+        if ( !currentDates.length ) return
+
+        const [ year, month, day ] = dateGetter();
+
+        setCurrentDates( getDateDifference( { year, month, day }, currentDates.length ) );
+    }
+
+    const classGenerator = () => {
+        
+    }
+
     return (
         <div className={`sales-graph-con ${ daysToDisp === "fm" ? daysToDisp : "d" + daysToDisp }-length`}>
             { salesInfoDisplay &&
@@ -190,7 +215,11 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
                         <h4> Days: </h4>
                         <CustomSelect arrList={ selectListDays } handler={ val => setDaysToDisp( val ) } classCustom="sales-graph" />
                     </div> }
-                    { nextPrevBtns && <SalesGraphNextPrev /> }
+                    { nextPrevBtns && 
+                    <SalesGraphNextPrev 
+                        curEndDate={ currentDates.length ? currentDates[ currentDates.length - 1 ].date : null } 
+                        prevHandler={ prevGraph } 
+                        nextHandler={ nextGraph } /> }
                 </div>
             </> 
             }

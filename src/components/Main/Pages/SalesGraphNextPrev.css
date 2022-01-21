@@ -1,0 +1,30 @@
+div.graph-next-prev-con 
+{
+    width: 20rem;
+    align-items: center;
+    justify-content: space-around;
+}
+
+div.graph-next-prev-con button 
+{
+    height: 3.5rem;
+    width: 9rem;
+    border: .2rem solid rgba(0, 0, 0, .25);
+    border-radius: .75rem;
+}
+
+div.graph-next-prev-con button:hover 
+{
+    border: .2rem solid black;
+}
+
+div.graph-next-prev-con button:disabled
+{
+    background-color: rgba(0, 0, 0, .25);
+    color: white;
+}
+
+div.graph-next-prev-con button:disabled:hover
+{
+    border: none;
+}

@@ -3,6 +3,7 @@ import { Outlet, Route, Routes } from "react-router-dom"
 import { MenuContext } from "../UnderRootContent";
 import AsideNav from "./Aside/AsideNav";
 import AsideScanner from "./Aside/AsideScanner";
+import './Main.css';
 
 const Main = () => {
     const { scannerOpen } = useContext( MenuContext );

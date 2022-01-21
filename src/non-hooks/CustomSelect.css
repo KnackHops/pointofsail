@@ -7,6 +7,28 @@ div.custom-select-con
     position: relative;
 }
 
+div.custom-select-con::after
+{
+    content: "";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    border-top: 2rem solid rgba(0, 0, 0, .25);
+}
+
+div.custom-select-con:hover::after
+{
+    border-top: 2rem solid black;
+}
+
+div.custom-select-con.-active::after
+{
+    border-top: none;
+    border-bottom: 2rem solid black;
+}
+
 div.custom-select-con:hover
 {
     border: .2rem solid black;

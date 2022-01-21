@@ -1,0 +1,11 @@
+section.main-section
+{
+    justify-content: center;
+    width: 100%;
+}
+
+section.main-section > div.section-inside
+{
+   width: 1600px;
+   min-width: 50%;
+}
