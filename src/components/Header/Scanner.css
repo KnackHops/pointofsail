@@ -1,5 +1,5 @@
 div.scanner-con {
-    position: absolute;
+    position: fixed;
     right: .5rem;
     bottom: .5rem;
 }

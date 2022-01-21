@@ -1,0 +1,57 @@
+div.custom-select-con 
+{
+    height: 4rem;
+    width: 18rem;
+    border: .2rem solid rgba(0, 0, 0, .25);
+    border-radius: 1rem;
+    position: relative;
+}
+
+div.custom-select-con:hover
+{
+    border: .2rem solid black;
+    cursor: pointer;
+}
+
+div.select-list-con.-active div.select-item::after, div.selected-value::after
+{
+    content: attr( data-display-text );
+}
+
+div.selected-value::after
+{
+    display: block;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    height: 4rem;
+    padding: 0 1rem;
+}
+
+div.select-list-con
+{
+    position: fixed;
+    margin-top: 4rem;
+    background-color: rgba(0, 0, 0, .25);
+    border-radius: .5rem;
+}
+
+div.select-list-con.-active div.select-item {
+    height: 2.5rem;
+    width: 18rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.select-list-con.-active div.select-item:after
+{
+    font-size: 1.75rem;
+    position: absolute;
+}
+
+div.select-list-con.-active div.select-item:hover
+{
+    background-color: rgba(0, 0, 0, .25);
+    color: wheat;
+}

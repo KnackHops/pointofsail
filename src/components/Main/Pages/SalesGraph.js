@@ -1,19 +1,45 @@
 import { useContext, useEffect, useState } from "react";
 import ReactFrappeChart from "react-frappe-charts";
+import CustomSelect from "../../../non-hooks/CustomSelect";
 import { provideSale } from "../../../tempFolder/temp";
 import { FunctionContext, UserContext } from "../../UnderRootContent";
 import './SalesGraph.css'
 
-const SalesGraph = ( { parentProductSale="none" } ) => {
+const selectListDays = [
+    {
+        label: "Full Month",
+        value: "fm"
+    },
+    {
+        label: "7 days",
+        value: 7
+    },
+    {
+        label: "14 days",
+        value: 14
+    }
+]
+
+const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=false } ) => {
     const { user } = useContext( UserContext );
     const { getDateDifference } = useContext( FunctionContext );
     const [ currentDates, setCurrentDates ] = useState( [] );
     const [ productSale, setProductSale ] = useState( null );
     const [ salesInfoDisplay, setSalesInfo ] = useState( false );
+    const [ daysToDisp, setDaysToDisp ] = useState( "fm" );
 
     useEffect( () => {
-        if ( !currentDates.length ) setCurrentDates( getDateDifference() );
-    }, [] )
+        graphInfoMachine();
+    }, [ currentDates ] )
+
+    const datasSetter = () => {
+        if ( !currentDates.length || daysToDisp === "fm" ) setCurrentDates( getDateDifference() );
+        else setCurrentDates( getDateDifference( false, daysToDisp ) )
+    }
+
+    useEffect( () => {
+        datasSetter();
+    }, [ daysToDisp ] )
 
     const graphInfoMachine = () => {
         /* this will be dynamic */
@@ -155,10 +181,29 @@ const SalesGraph = ( { parentProductSale="none" } ) => {
                     colors={ ['#7cd6fd', '#743ee2', 'red', 'green'] }
                     data={  salesInfoDisplay }
                 /> 
-                <div className="sales-graph-control">
-                    <p>
-                        yo
-                    </p>
+                <div className="sales-graph-control fd">
+                    { cSelect &&
+                    <div className="sales-graph-days">
+                        <p> Days </p>
+                        <CustomSelect arrList={ selectListDays } handler={ val => setDaysToDisp( val ) } classCustom="sales-graph" />
+                    </div> }
+                    { nextPrevBtns && 
+                    <>
+                    <div className="sales-graph-prev">
+                        <p>
+                            <button>
+                                Previous
+                            </button>
+                        </p>
+                    </div>
+                    <div className="sales-graph-prev">
+                        <p>
+                            <button>
+                                Next
+                            </button>
+                        </p>
+                    </div> 
+                    </> }
                 </div>
             </> 
             }

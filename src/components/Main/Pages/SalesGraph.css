@@ -1,9 +1,10 @@
 div.sales-graph-con {
-    height: 40rem;
+    height: 50rem;
     width: 100%;
+    overflow-y: hidden;
     overflow-x: auto;
 }
 
-div.sales-graph-con > div {
-    min-width: 80rem;
+div.sales-graph-con > div:first-child {
+    min-width: 100rem;
 }
