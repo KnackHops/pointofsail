@@ -101,95 +101,90 @@ const UnderRootContent = () => {
         if ( scannerOpen ) scannerMenuHandler();
     }, [ curRoute ] )
 
-    const dateCompute = ( curDate, numberOfDays, whichDo ) => {
-        let dateFlow = true;
-        let dates = [];
-
-        while ( dateFlow ) {
-            
-            dateFlow = !dateFlow;
-        } 
+    const yearEndComputeMinus = ( _year, _month ) => {
+        if ( _month === 1 ) return [ _year - 1, 12 ]
+        else return [ _year, _month - 1 ]
     }
 
-    const getDateDifference = ( predeterDate = null, numberOfDays = null, computeTo="sub" ) => {
-        let _dt = new Date();
-        let curDay;
-        let _year;
-        let _month;
+    const yearEndComputePlus = ( _year, _month ) => {
+        if ( _month === 12 ) return [ _year + 1, 1 ]
+        else return [ _year, _month + 1 ]
+    }
 
-        if ( predeterDate ) {
-            curDay = predeterDate?.day;
-            _year = predeterDate?.year;
-            _month = predeterDate?.month;
+    const dateCompute = ( curDay, _month, _year, numberOfDays, whichDo ) => {
+        let [ year, month ] = [ _year, _month ];
+        let remainingDay = numberOfDays;
+        // first assign the current date as the starting point
+        let dates = [ { year, month, day: curDay } ];
+
+        if ( whichDo === "add" ) {
+            // if we are adding
+            // get the current full days of the month
+            let _d = new Date( year, month, 0 ).getDate();
+            // get the current days + the remaining days to be added
+            let day = remainingDay + curDay;
+            // if day is less than full days of the month
+            // we assign the current day + remaining day as the end month
+            // else
+            // we reduce the remaining day
+            // by deducting the full days of the month to the remaining day and current day
+            if ( day <= _d  ) dates.push( { year, month, day: curDay + remainingDay - 1 } )
+            else remainingDay = day - _d;
         } else {
-            curDay = _dt.getDate();
-            _year = _dt.getFullYear();
-            _month = _dt.getMonth() + 1;
+            // if remaining day is less than or equal to current day
+            // we push the deducted date
+            // else
+            // we deduct the current days to the remaining days
+            if ( remainingDay <= curDay ) dates.push( { year, month, day: curDay - remainingDay + 1 } )
+            else remainingDay = remainingDay - curDay;
         }
 
-        let daysInMonth = new Date( _year, _month, 0 ).getDate();
+        // if dates length is greater than 1
+        // it means we don't have to loop
+        let dateFlow = dates.length > 1 ? false : true;
+        let day = null;
 
-        let prevDaysInMonth = null;
-        let prevYear;
-        let prevMonth;
+        while ( dateFlow ) {
+            [ year, month ] = whichDo === "add" ? yearEndComputePlus( year, month ) : yearEndComputeMinus( year, month );
+            let _d = new Date( year, month, 0 ).getDate();
 
-        // if number of days AND
-        // curDay < numberOfDays AND month !== 1
-        // OR
-        // if not number of days AND
-        // days in month > curDay AND month !== 1
-        
-        if ( ( numberOfDays && ( curDay < numberOfDays && _month !== 1 ) ) 
-            || 
-            ( !numberOfDays && ( daysInMonth > curDay && _month !== 1 ) ) ) 
-        {
-            prevYear = _year;
-            prevMonth = _month - 1;
-        }
-
-        // if number of days AND
-        // curDay < numberOfDays AND month === 1
-        // OR
-        // if not number of days AND
-        // days in month > curDay AND month === 1
-
-        if ( ( numberOfDays && ( curDay < numberOfDays && _month === 1 ) ) 
-            || 
-            ( !numberOfDays && ( daysInMonth > curDay && _month === 1 ) ) ) 
-        {
-            prevYear = _year - 1;
-            prevMonth = 12;
-        }
-        if ( prevYear && prevMonth ) prevDaysInMonth = new Date( prevYear, prevMonth, 0 ).getDate();
-
-        let returnDate = [];
-        let startComp = 1;
-
-        if ( prevDaysInMonth ) {
-            let startDay;
-
-            if ( numberOfDays ) {
-                startDay = ( prevDaysInMonth + 1 ) - ( numberOfDays - curDay )
+            if ( remainingDay > _d ) {
+                // deduct the total days of the month to the remainingDay
+                // assign day as 0 to indicate full month
+                remainingDay = remainingDay - _d;
+                day = 0;
             } else {
-                startDay = ( prevDaysInMonth + 1 ) - ( daysInMonth - curDay )
+                // if total days is more than remainingDay
+                // just assign the remaing days to the month if adding
+                // deduct the remaining day to the full month if minus
+                // here we can stop the loop
+                if ( whichDo === "add" ) day = remainingDay - 1;
+                else day = _d - remainingDay + 1;
             }
 
-            for ( let x = startDay; x <= prevDaysInMonth; x++ ) {
-                returnDate.push( {
-                    date: `${ prevYear }-${ monthDayStrMod( prevMonth ) }-${ monthDayStrMod( x ) }`
-                } )
-            }
-        } else {
-            if ( numberOfDays ) startComp+=curDay - numberOfDays
+            dates.push( { year, month, day } );
+
+
+            if ( day ) dateFlow = false;
         }
 
-        for ( let x = startComp; x <= curDay; x++ ) {
-            returnDate.push( {
-                date: `${ _year }-${ monthDayStrMod( _month ) }-${ monthDayStrMod( x ) }`
-            } )
-        }
+        return dates;
+    }
 
-        return returnDate;
+    const getDateDifference = ( predeterDate = null, _numberOfDays = null, whichDo="sub" ) => {
+        let _dt = new Date();
+        let curDay = predeterDate?.day || _dt.getDate();
+        let _month = predeterDate?.month || _dt.getMonth + 1;
+        let _year = predeterDate?.year || _dt.getFullYear();
+
+        const numberOfDays = _numberOfDays || new Date( _year, _month, 0 ).getDate();
+
+        const dates = dateCompute( curDay, _month, _year, numberOfDays, whichDo  );
+        let reuturnDates = [];
+
+        if ( dates[0].year === dates[1].year && dates[0].month === dates[1].month ) {
+            let counter = whichDo === "add" ? dates[1].day - dates[0].day : dates[0].day - dates[1].day;
+        }
     }
 
     return (

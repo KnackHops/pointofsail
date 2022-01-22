@@ -192,10 +192,6 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
         setCurrentDates( getDateDifference( { year, month, day }, currentDates.length ) );
     }
 
-    const classGenerator = () => {
-        
-    }
-
     return (
         <div className={`sales-graph-con ${ daysToDisp === "fm" ? daysToDisp : "d" + daysToDisp }-length`}>
             { salesInfoDisplay &&
