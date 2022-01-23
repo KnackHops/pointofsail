@@ -11,7 +11,7 @@ div.sales-graph-con
 div.sales-graph-con > div:first-child 
 {
     width: 100%;
-    min-width: 185rem;
+    min-width: 195rem;
     padding: .5rem;
     padding-right: 1rem;
 }

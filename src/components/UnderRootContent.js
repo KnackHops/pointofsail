@@ -73,10 +73,6 @@ const UnderRootContent = () => {
         navigate( "/login" )
     }
 
-    const monthDayStrMod = val => {
-        return val < 10 ? "0" + val : val
-    }
-
     const registerHandler = ( { username, password, email, mobile, name } ) => {
         const nameChk = generalCheck( name, "name" );
         const usernameChk = generalCheck( username, "username" );
@@ -168,23 +164,57 @@ const UnderRootContent = () => {
             if ( day ) dateFlow = false;
         }
 
+        if ( whichDo === "sub" ) {
+            let newDate = [];
+            let dCounter = dates.length - 1;
+            dates.forEach( d => {
+                newDate.push( dates[ dCounter ] )
+
+                dCounter = dCounter - 1;
+            })
+
+            dates = newDate;
+        }
+
         return dates;
+    }
+
+    const monthDayStrMod = val => {
+        return val < 10 ? "0" + val : val
+    }
+
+    const dateString = ( year, month, day ) => {
+        return `${ year }-${ monthDayStrMod( month ) }-${ monthDayStrMod( day ) }`
     }
 
     const getDateDifference = ( predeterDate = null, _numberOfDays = null, whichDo="sub" ) => {
         let _dt = new Date();
         let curDay = predeterDate?.day || _dt.getDate();
-        let _month = predeterDate?.month || _dt.getMonth + 1;
+        let _month = predeterDate?.month || _dt.getMonth() + 1;
         let _year = predeterDate?.year || _dt.getFullYear();
 
         const numberOfDays = _numberOfDays || new Date( _year, _month, 0 ).getDate();
 
         const dates = dateCompute( curDay, _month, _year, numberOfDays, whichDo  );
-        let reuturnDates = [];
+        
+        let returnDates = [];
 
         if ( dates[0].year === dates[1].year && dates[0].month === dates[1].month ) {
-            let counter = whichDo === "add" ? dates[1].day - dates[0].day : dates[0].day - dates[1].day;
+            for ( let _d = dates[0].day; _d <= dates[1].day; _d++ ) {
+                returnDates.push( dateString( dates[0].year, dates[0].month, _d ) )
+            }
+        } else {
+            dates.forEach( ( date, i ) => {
+                let startDay = i ? 1 : date.day;
+                let endDay = i === dates.length - 1 ? date.day : new Date( date.year, date.month, 0 ).getDate();
+
+                for ( let _d = startDay; _d <= endDay; _d++) {
+                    returnDates.push( dateString( date.year, date.month, _d ) )
+                }
+            } )
         }
+
+        return returnDates;
     }
 
     return (

@@ -35,7 +35,7 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
 
     const datasSetter = ( ) => {
         if ( !currentDates.length || daysToDisp === "fm" ) setCurrentDates( getDateDifference() );
-        else setCurrentDates( getDateDifference( false, Number( daysToDisp ) ) )
+        else setCurrentDates( getDateDifference( null, Number( daysToDisp ) ) )
     }
 
     useEffect( () => {
@@ -77,13 +77,13 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
         let highestNet = 0;
 
         currentDates.forEach( _d => {
-            labels.push( _d.date.slice( 2 ) );
+            labels.push( _d.slice( 2 ) );
 
             let found = false;
 
             productSale.forEach( ( { gross_price_sale, base_price_sale, date, quantity_sale } ) => {
 
-                if ( _d.date === date ) {
+                if ( _d === date ) {
                     // get net and gross income
                     const net = ( gross_price_sale - base_price_sale ) * quantity_sale;
                     const gross = gross_price_sale * quantity_sale;
@@ -171,25 +171,22 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
         checkProductSale();
     }, [ parentProductSale, productSale ] )
 
-    const dateGetter = ( indexDate = 0 ) => {
+    const dateGetter = indexDate => {
         return [ 
-            currentDates[ indexDate ].date.slice( 0, 4 ), 
-            currentDates[ indexDate ].date.slice( 5, 7 ),
-            currentDates[ indexDate ].date.slice( 8 )
+            currentDates[ indexDate ].slice( 0, 4 ), 
+            currentDates[ indexDate ].slice( 5, 7 ),
+            currentDates[ indexDate ].slice( 8 )
         ].map( item => Number ( item ) );
     }
 
-    const nextGraph = () => {
+    const graphNextOrPrevHandler = whichDo => {
         if ( !currentDates.length ) return
+        const indexDate = whichDo.includes( "Prev" ) ? 0 : currentDates.length - 1
+        const dateDo = whichDo.includes( "Prev" ) ? "sub" : "add";
 
-    }
+        const [ year, month, day ] = dateGetter( indexDate );
 
-    const prevGraph = () => {
-        if ( !currentDates.length ) return
-
-        const [ year, month, day ] = dateGetter();
-
-        setCurrentDates( getDateDifference( { year, month, day }, currentDates.length ) );
+        setCurrentDates( getDateDifference( { year, month, day }, currentDates.length, dateDo ) )
     }
 
     return (
@@ -213,9 +210,8 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
                     </div> }
                     { nextPrevBtns && 
                     <SalesGraphNextPrev 
-                        curEndDate={ currentDates.length ? currentDates[ currentDates.length - 1 ].date : null } 
-                        prevHandler={ prevGraph } 
-                        nextHandler={ nextGraph } /> }
+                        curEndDate={ currentDates.length ? currentDates[ currentDates.length - 1 ] : null } 
+                        handler={ graphNextOrPrevHandler } /> }
                 </div>
             </> 
             }
