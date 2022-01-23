@@ -185,7 +185,8 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
         const dateDo = whichDo.includes( "Prev" ) ? "sub" : "add";
 
         const [ year, month, day ] = dateGetter( indexDate );
-
+        // need treshold for next where it can't be predicted where the end date will be
+        // this is to prevent exceeding current Date
         setCurrentDates( getDateDifference( { year, month, day }, currentDates.length, dateDo ) )
     }
 
