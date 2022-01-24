@@ -6,8 +6,7 @@ const Profile = () => {
     const { subRoute } = useContext( RouteContext );
 
     return (
-        <SectionWrappers>
-            <h1>Profile</h1>
+        <SectionWrappers sectionTitle={ <h1>Profile</h1> }>
             <p>{ subRoute || "origin" }</p>
         </SectionWrappers>
     )

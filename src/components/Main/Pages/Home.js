@@ -6,9 +6,7 @@ import SalesGraph from "./SalesGraph";
 const Home = () => {
 
     return (
-        <SectionWrappers>
-            <h1> Home </h1>
-            <h2> Sales </h2>
+        <SectionWrappers sectionTitle={ <> <h1> Home </h1> <h2> Sales </h2> </> }>
             <SaleControl />
             <SalesGraph cSelect={ true } nextPrevBtns={ true } />
             <ProductControl />

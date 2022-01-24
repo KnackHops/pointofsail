@@ -43,7 +43,7 @@ const ProductPage = ( { productList } ) => {
                     product?.product_name
                 }
             </h3>
-            <SalesGraph productSale={ productSale } parentProductSale={ null ? "none" : productSale }/>
+            { productSale && <SalesGraph productSale={ productSale } parentProductSale={ productSale }  cSelect={ true } nextPrevBtns={ true } /> }
             <SalesList parentProductSale={ productSale } />
         </div>
     )

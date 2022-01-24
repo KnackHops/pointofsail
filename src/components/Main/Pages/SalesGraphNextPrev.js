@@ -1,16 +1,6 @@
-import { useMemo } from 'react'
 import './SalesGraphNextPrev.css'
 
-const SalesGraphNextPrev = ( { curEndDate, handler } ) => {
-    const tresHoldDay = useMemo(() => {
-        const _dt = new Date();
-
-        const curDay = _dt.getDate();
-        const curMonth = _dt.getMonth() + 1;
-        const curYear = _dt.getFullYear();
-
-        return `${curYear}-${ curMonth < 10 ? "0" + curMonth : curMonth }-${ curDay < 10 ? "0" + curDay : curDay }`
-    }, [])
+const SalesGraphNextPrev = ( { handler, resetHandler } ) => {
 
     const Btnhandler = e => {
         e.preventDefault();
@@ -19,13 +9,22 @@ const SalesGraphNextPrev = ( { curEndDate, handler } ) => {
         handler( e.target.innerText )
     }
 
+    const resetBtn = e => {
+        e.preventDefault();
+
+        resetHandler();
+    }
+
     return (
         <div className="graph-next-prev-con fd">
             <p className="prev-btn-con">
                 <button type="button" onClick={ Btnhandler } > Previous </button>
             </p>
+            <p>
+                <button type='reset' onClick={ resetBtn }> Reset </button>
+            </p>
             <p className="next-btn-con">
-                <button type="button" disabled={ curEndDate === tresHoldDay ? true : false } onClick={ Btnhandler } > Next </button>
+                <button type="button" onClick={ Btnhandler } > Next </button>
             </p>
         </div>
     )

@@ -186,16 +186,18 @@ const SaleControl = () => {
     }, [ sale ] )
 
     return (
-        <DynamicControl 
-            dynamicClass={ "sale" }
-            arrControl={ stages || [] }
-            dynamicData={ saleData }
-            dynamicDataHandler={ handleSaleData }
-            curStage={ curStage }
-            thresholdStage={ thresholdStage }
-            addStageHandler={ () => setCurStage( curStage + 1 ) }
-            removeStageHandler={ () => setCurStage( curStage - 1 ) }
-        />
+        <div className='width-standard'>
+            <DynamicControl 
+                dynamicClass={ "sale" }
+                arrControl={ stages || [] }
+                dynamicData={ saleData }
+                dynamicDataHandler={ handleSaleData }
+                curStage={ curStage }
+                thresholdStage={ thresholdStage }
+                addStageHandler={ () => setCurStage( curStage + 1 ) }
+                removeStageHandler={ () => setCurStage( curStage - 1 ) }
+            />
+        </div>
     )
 }
 

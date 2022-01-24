@@ -1,7 +1,6 @@
 div.sales-graph-con 
 {
     height: 50rem;
-    padding-top: 10rem;
     width: 100%;
     overflow-y: hidden;
     overflow-x: visible;
@@ -11,31 +10,37 @@ div.sales-graph-con
 div.sales-graph-con > div:first-child 
 {
     width: 100%;
-    min-width: 195rem;
     padding: .5rem;
     padding-right: 1rem;
+    min-width: 183.5rem;
 }
 
-div.sales-graph-con.d14-length > div:first-child 
+div.sales-graph-control 
 {
-    min-width: 95rem;
-}
-
-div.sales-graph-con.d7-length > div:first-child {
-    min-width: 50rem;
-}
-
-div.sales-graph-control {
-    position: absolute;
-    top: 0;
+    position: fixed;
     margin-top: 2.5rem;
     padding: 0 .5rem;
 }
 
-div.sales-graph-days {
+div.sales-graph-days, div.sales-graph-which-display
+{
     font-size: 1.75rem;
 }
 
-div.sales-graph-days > div {
+div.sales-graph-days > div, div.sales-graph-which-display > div
+{
     margin-left: 2rem;
+}
+
+@media only screen and ( max-width: 540px )
+{
+    div.sales-graph-con 
+    {
+        height: 55rem;
+    }
+    div.sales-graph-control
+    {
+        display: flex;
+        flex-direction: column;
+    }
 }

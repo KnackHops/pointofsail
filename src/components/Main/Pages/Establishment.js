@@ -16,8 +16,7 @@ const Establishment = () => {
     }, [] )
 
     return (
-        <SectionWrappers>
-            <h1>Establishment</h1>
+        <SectionWrappers sectionTitle={ <h1>Establishment</h1> }>
             <Routes>
                 <Route path={"own"} element={ <EstablishmentList establishments={ establishments } /> }/>
                 <Route path={"id:establishment_id/*"} element={ <EstablishmentPage establishments={ establishments }/> }/>

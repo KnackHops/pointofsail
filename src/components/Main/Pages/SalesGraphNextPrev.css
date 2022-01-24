@@ -1,6 +1,6 @@
 div.graph-next-prev-con 
 {
-    width: 20rem;
+    padding: 2rem;
     align-items: center;
     justify-content: space-around;
 }
@@ -11,6 +11,7 @@ div.graph-next-prev-con button
     width: 9rem;
     border: .2rem solid rgba(0, 0, 0, .25);
     border-radius: .75rem;
+    margin: 0 .5rem;
 }
 
 div.graph-next-prev-con button:hover 

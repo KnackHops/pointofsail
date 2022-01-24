@@ -21,28 +21,58 @@ const selectListDays = [
     }
 ]
 
+const selectListWhichDisplay = [
+    {
+        label: "Default",
+        value: "default"
+    },
+    {
+        label: "Gross Sale",
+        value: "gross"
+    },
+    {
+        label: "Net Sale",
+        value: "net"
+    },
+    {
+        label: "Sale Prices",
+        value: "prices"
+    }
+]
+
 const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=false } ) => {
     const { user } = useContext( UserContext );
     const { getDateDifference } = useContext( FunctionContext );
-    const [ currentDates, setCurrentDates ] = useState( [] );
+    // this will tell which to display
+    const [ whichToDisplay, setWhichToDisplay ] = useState( "default" );
+    // raw sale data 
     const [ productSale, setProductSale ] = useState( null );
+    // dates to be used
+    // an array
+    // const [ currentDates, setCurrentDates ] = useState( [] );
+    // actual info to be displayed
     const [ salesInfoDisplay, setSalesInfo ] = useState( false );
+    // tells how many days to display
     const [ daysToDisp, setDaysToDisp ] = useState( "fm" );
 
-    useEffect( () => {
-        if ( currentDates.length ) graphInfoMachine();
-    }, [ currentDates ] )
+    // useEffect( () => {
+    //     if ( currentDates.length ) graphInfoMachine();
+    // }, [ currentDates ] )
 
     const datasSetter = ( ) => {
-        if ( !currentDates.length || daysToDisp === "fm" ) setCurrentDates( getDateDifference() );
-        else setCurrentDates( getDateDifference( null, Number( daysToDisp ) ) )
+        // if ( !currentDates.length || daysToDisp === "fm" ) setCurrentDates( getDateDifference() );
+        // else setCurrentDates( getDateDifference( null, Number( daysToDisp ) ) )
+        const currentDates = daysToDisp === "fm" ? getDateDifference() : getDateDifference( null, Number( daysToDisp ) );
+
+        graphInfoMachine( currentDates )
     }
 
     useEffect( () => {
-        if ( productSale ) datasSetter();
+        // if ( productSale ) datasSetter();
+        if ( productSale ) datasSetter()
     }, [ daysToDisp ] )
 
-    const graphInfoMachine = () => {
+    const graphInfoMachine = currentDates => {
         /* this will be dynamic */
         /* adjust date */
         /* custom select: last 7 days, last 14 days, last 30 days and so on */
@@ -172,22 +202,39 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
     }, [ parentProductSale, productSale ] )
 
     const dateGetter = indexDate => {
+        // return [ 
+        //     currentDates[ indexDate ].slice( 0, 4 ), 
+        //     currentDates[ indexDate ].slice( 5, 7 ),
+        //     currentDates[ indexDate ].slice( 8 )
+        // ].map( item => Number ( item ) );
+
+        const curYear = `${new Date().getFullYear()}`.slice( 0, 2 );
+        const dateStr = curYear + salesInfoDisplay?.labels[ indexDate ];
+
         return [ 
-            currentDates[ indexDate ].slice( 0, 4 ), 
-            currentDates[ indexDate ].slice( 5, 7 ),
-            currentDates[ indexDate ].slice( 8 )
+            dateStr.slice( 0, 4 ), 
+            dateStr.slice( 5, 7 ),
+            dateStr.slice( 8 )
         ].map( item => Number ( item ) );
     }
 
+    const resetHandler = () => {
+        graphInfoMachine( getDateDifference( null, salesInfoDisplay.labels.length ) )
+    }
+
     const graphNextOrPrevHandler = whichDo => {
-        if ( !currentDates.length ) return
-        const indexDate = whichDo.includes( "Prev" ) ? 0 : currentDates.length - 1
+        const datesLength = salesInfoDisplay.labels.length;
+        if ( !datesLength ) return
+        const indexDate = whichDo.includes( "Prev" ) ? 0 : datesLength - 1
         const dateDo = whichDo.includes( "Prev" ) ? "sub" : "add";
 
         const [ year, month, day ] = dateGetter( indexDate );
         // need treshold for next where it can't be predicted where the end date will be
         // this is to prevent exceeding current Date
-        setCurrentDates( getDateDifference( { year, month, day }, currentDates.length, dateDo ) )
+        // setCurrentDates( getDateDifference( { year, month, day }, currentDates.length, dateDo ) )
+        console.log( year, month, day )
+
+        graphInfoMachine( getDateDifference( { year, month, day }, datesLength, dateDo ) )
     }
 
     return (
@@ -198,12 +245,19 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
                     title="Date: Y/M/D"
                     type="axis-mixed"
                     height={ 350 }
+                    width={ 1835 }
                     barOptions={ { spaceRation: .4 } }
                     lineOptions={ { dotSize: 3 } }
                     colors={ ['#7cd6fd', '#743ee2', 'red', 'green'] }
                     data={  salesInfoDisplay }
                 /> 
                 <div className="sales-graph-control fd">
+                    { true &&
+                    <div className="sales-graph-which-display">
+                        <h4> Which to display: </h4>
+                        <CustomSelect arrList={ selectListWhichDisplay } handler={ val => console.log( val ) } classCustom="which-display"/>
+                    </div>
+                    }
                     { cSelect &&
                     <div className="sales-graph-days">
                         <h4> Days: </h4>
@@ -211,8 +265,8 @@ const SalesGraph = ( { parentProductSale="none", cSelect=false, nextPrevBtns=fal
                     </div> }
                     { nextPrevBtns && 
                     <SalesGraphNextPrev 
-                        curEndDate={ currentDates.length ? currentDates[ currentDates.length - 1 ] : null } 
-                        handler={ graphNextOrPrevHandler } /> }
+                        handler={ graphNextOrPrevHandler }
+                        resetHandler={ resetHandler } /> }
                 </div>
             </> 
             }
