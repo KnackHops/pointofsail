@@ -234,6 +234,9 @@ const UnderRootContent = () => {
                     <Route path="subscription/*" element={ user ? <Subscription /> : <Navigate replace to="/" /> } />
                 </Route>
             </Routes>
+            <footer style={ { height: "40rem" } } >
+                <p> footer </p>
+            </footer>
         </>
         </FunctionContext.Provider>
         </UserContext.Provider>

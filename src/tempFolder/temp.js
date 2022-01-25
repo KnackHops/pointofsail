@@ -1,4 +1,4 @@
-const login_data = [
+let login_data = [
     {
         userid: 0,
         username: "admin0",
@@ -11,7 +11,7 @@ const login_data = [
     }
 ]
 
-const user_data = [
+let user_data = [
     {
         id: 0,
         name: "Admin Me",
@@ -26,7 +26,7 @@ const user_data = [
     }
 ]
 
-const establishment_data = [
+let establishment_data = [
     {
         id: 0,
         name: "admin store"
@@ -37,7 +37,7 @@ const establishment_data = [
     }
 ]
 
-const employee_data = [
+let employee_data = [
     {
         userid: 0,
         establishment_id: 0,
@@ -60,7 +60,7 @@ const employee_data = [
     }
 ]
 
-const products_data = [
+let products_data = [
     {
         id: 0,
         establishment_id: 0,
@@ -83,7 +83,7 @@ const products_data = [
     }
 ]
 
-const sales_data = [
+let sales_data = [
     {
         id: 0,
         product_id: 0,
@@ -371,15 +371,28 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
     let salesInfo = [];
 
     prod_id_arr.forEach( prod_id => {
-
+        let found = false;
         sales_data.forEach( sale => {
-            if ( sale.product_id === prod_id ) salesInfo.push( {
-                sale_id: sale.id,
-                date: sale.date,
-                base_price_sale: sale.base_price_sale,
-                gross_price_sale: sale.gross_price_sale,
-                quantity_sale: sale.quantity_sale
-            } )
+            if ( found ) {
+                salesInfo.forEach( _saleInf => {
+                    if ( _saleInf.product_id === prod_id && _saleInf.date === sale.date ) {
+
+                    } 
+                } )
+            } else {
+                if ( sale.product_id === prod_id ) {
+                    found = true;
+
+                    salesInfo.push( {
+                        sale_id: sale.id,
+                        product_id: prod_id,
+                        date: sale.date,
+                        base_price_sale: sale.base_price_sale,
+                        gross_price_sale: sale.gross_price_sale,
+                        quantity_sale: sale.quantity_sale
+                    } )
+                }
+            }
         } )
 
     } )
@@ -407,5 +420,21 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
 
     return salesInfo;
 } 
+
+const addSale = ( { product_id, quantity_sale, gross_price, base_price } ) => {
+    const _dt = new Date();
+    const year = _dt.getFullYear()
+    const month = ( _dt.getMonth() + 1 ) < 10 ? "0" + ( _dt.getMonth() + 1 ) : _dt.getMonth() + 1;
+    const day = ( _dt.getDate() + 1 ) < 10 ? "0" + ( _dt.getDate() + 1 ) : _dt.getDate() + 1;
+
+    const _date = `${ year }-${ month }-${ day }`;
+
+    products_data.forEach( ( sale, i ) => {
+        if ( sale.product_id === product_id && sale.date === _date && sale.gross_price === gross_price && sale.base_price === base_price )
+        {
+            products_data[ i ].quantity_sale = sale.quantity_sale + quantity_sale;
+        }
+    } )
+}
 
 export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale }

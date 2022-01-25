@@ -4,7 +4,7 @@ import DynamicControl from '../../../wrappers/DynamicControl';
 import { UserContext } from '../../UnderRootContent';
 import './SaleControl.css';
 
-const SaleControl = () => {
+const SaleControl = ( { updateProductSale=null } ) => {
     /* init => choose establishment ( ch_es ) => choose product ( ch_prod ) */
     /* add */
     /* info add ( inf_add ) */
@@ -184,6 +184,8 @@ const SaleControl = () => {
     useEffect( () => {
         if ( sale ) formGenerator();
     }, [ sale ] )
+
+    console.log( saleData )
 
     return (
         <div className='width-standard'>
