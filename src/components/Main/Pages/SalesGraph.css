@@ -1,8 +1,16 @@
 div.sales-graph-con 
 {
     position: relative;
-    height: 50rem;
+    padding: 10rem 0;
     width: 100%;
+}
+
+div.title-graph
+{
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    padding: 2rem;
 }
 
 div.graph-con
@@ -42,7 +50,7 @@ div.sales-graph-days > div
 {
     div.sales-graph-con 
     {
-        height: 55rem;
+        padding-bottom: 15rem;
     }
     div.sales-graph-control
     {

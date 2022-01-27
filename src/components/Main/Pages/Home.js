@@ -25,10 +25,10 @@ const Home = () => {
             <SaleControl updateProductSale={ updateProductSale } />
             { productSale &&
                 <>
-                    <SalesGraph parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } colors={ [ "green", "red", "red", "green", "blue" ] } />
-                    <SalesGraph parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } className="gross-graph" whichToDisplay="gross" colors={ [ "red", "blue" ] } />
-                    <SalesGraph parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } className="net-graph" whichToDisplay="net" colors={ [ "green", "blue" ] } />
-                    <SalesGraph parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } className="prices-graph" whichToDisplay="prices" colors={ [ "green", "red" ] } />
+                    <SalesGraph titleGraph={ "Admin view" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } colors={ [ "green", "red", "red", "green", "blue" ] } />
+                    <SalesGraph titleGraph={ "Gross" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } className="gross-graph" whichToDisplay="gross" colors={ [ "red", "blue" ] } />
+                    <SalesGraph titleGraph={ "Net" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } className="net-graph" whichToDisplay="net" colors={ [ "green", "blue" ] } />
+                    <SalesGraph titleGraph={ "Prices" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } className="prices-graph" whichToDisplay="prices" colors={ [ "green", "red" ] } />
                 </>
             }
             <ProductControl />

@@ -217,10 +217,14 @@ const UnderRootContent = () => {
         return returnDates;
     }
 
+    const upperCaser = str => {
+        return str.slice( 0, 1 ).toUpperCase() + str.slice( 1 );
+    }
+
     return (
         <MenuContext.Provider value={ { scannerOpen, scannerMenuHandler } }>
         <UserContext.Provider value={ { user, logInHandler, registerHandler, logOutHandler } }>
-        <FunctionContext.Provider value = { { getDateDifference } }>
+        <FunctionContext.Provider value = { { getDateDifference, upperCaser } }>
         <>
             <MainHeader />
             <Routes>

@@ -21,7 +21,7 @@ const selectListDays = [
     }
 ]
 
-const SalesGraph = ( { className="default-sales-graph", parentProductSale="none", cSelect=false, nextPrevBtns=false, whichToDisplay="default", colors=[ "orange", "blue" ] } ) => {
+const SalesGraph = ( { titleGraph="", className="default-sales-graph", parentProductSale="none", cSelect=false, nextPrevBtns=false, whichToDisplay="default", colors=[ "orange", "blue" ] } ) => {
     const { user } = useContext( UserContext );
     const { getDateDifference } = useContext( FunctionContext );
     // this will tell which to display
@@ -71,14 +71,13 @@ const SalesGraph = ( { className="default-sales-graph", parentProductSale="none"
                 if ( whichToDisplay === "default" || whichToDisplay === "gross"  ) val.gross = gross_price_sale * quantity_sale;
 
                 if ( found ) {
-
                     // if default or prices
                     // first item is base_price_sale ( index 0 )
                     // second item is gross_price_sale ( index 1 )
                     // corresponding item is added to come up with total
                     if ( whichToDisplay === "default" || whichToDisplay === "prices" ) {
-                        datas[0] = base_price_sale + datas[0];
-                        datas[1] = gross_price_sale + datas[1];
+                        datas[0] = ( base_price_sale + datas[0] ) / 2;
+                        datas[1] = ( gross_price_sale + datas[1] ) / 2;
                     }
 
                     // if default
@@ -112,7 +111,6 @@ const SalesGraph = ( { className="default-sales-graph", parentProductSale="none"
 
                         datas.push( quantity_sale )
                     }
-
                     // datas = [ base_price_sale, gross_price_sale, gross, net ];
 
                     found = true;
@@ -383,6 +381,11 @@ const SalesGraph = ( { className="default-sales-graph", parentProductSale="none"
 
     return (
         <div className={`sales-graph-con ${ daysToDisp === "fm" ? daysToDisp : "d" + daysToDisp }-length ${className}-con`}>
+            <div className="title-graph">
+                <h3>
+                    { titleGraph }
+                </h3>
+            </div>
             { salesInfoDisplay &&
             <>
                 <div className="graph-con">

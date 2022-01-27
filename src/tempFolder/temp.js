@@ -283,6 +283,22 @@ let sales_data = [
         base_price_sale: 10,
         gross_price_sale: 13,
         quantity_sale: 15
+    },
+    {
+        id: 23,
+        product_id: 0,
+        date: "2022-01-23",
+        base_price_sale: 10,
+        gross_price_sale: 13,
+        quantity_sale: 15
+    },
+    {
+        id: 24,
+        product_id: 0,
+        date: "2022-01-23",
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 14
     }
 ]
 
@@ -371,28 +387,53 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
     let salesInfo = [];
 
     prod_id_arr.forEach( prod_id => {
-        let found = false;
+        // let found = false;
         sales_data.forEach( sale => {
-            if ( found ) {
-                salesInfo.forEach( _saleInf => {
-                    if ( _saleInf.product_id === prod_id && _saleInf.date === sale.date ) {
+            if ( sale.product_id === prod_id ) salesInfo.push( {
+                sale_id: sale.id,
+                product_id: prod_id,
+                date: sale.date,
+                base_price_sale: sale.base_price_sale,
+                gross_price_sale: sale.gross_price_sale,
+                quantity_sale: sale.quantity_sale
+            } )
+            // if ( found ) {
+            //     salesInfo.forEach( ( _saleInf, i ) => {
+            //         if ( _saleInf.product_id === prod_id && _saleInf.date === sale.date ) {
+            //             const quantity_total = _saleInf.quantity_sale + sale.quantity_sale;
 
-                    } 
-                } )
-            } else {
-                if ( sale.product_id === prod_id ) {
-                    found = true;
+            //             const saleTotal_base = 
+            //             ( _saleInf.base_price_sale * _saleInf.quantity_sale ) 
+            //             + 
+            //             ( sale.base_price_sale * sale.quantity_sale );
 
-                    salesInfo.push( {
-                        sale_id: sale.id,
-                        product_id: prod_id,
-                        date: sale.date,
-                        base_price_sale: sale.base_price_sale,
-                        gross_price_sale: sale.gross_price_sale,
-                        quantity_sale: sale.quantity_sale
-                    } )
-                }
-            }
+            //             const saleTotal_gross = 
+            //             ( _saleInf.gross_price_sale * _saleInf.quantity_sale ) 
+            //             + 
+            //             ( sale.gross_price_sale * sale.quantity_sale );
+
+            //             const newSaleBase = saleTotal_base / quantity_total;
+            //             const newSaleGross = saleTotal_gross / quantity_total;
+
+            //             salesInfo[ i ].quantity_sale = quantity_total;
+            //             salesInfo[ i ].base_price_sale = newSaleBase;
+            //             salesInfo[ i ].gross_price_sale = newSaleGross;
+            //         } 
+            //     } )
+            // } else {
+            //     if ( sale.product_id === prod_id ) {
+            //         found = true;
+
+            //         salesInfo.push( {
+            //             sale_id: sale.id,
+            //             product_id: prod_id,
+            //             date: sale.date,
+            //             base_price_sale: sale.base_price_sale,
+            //             gross_price_sale: sale.gross_price_sale,
+            //             quantity_sale: sale.quantity_sale
+            //         } )
+            //     }
+            // }
         } )
 
     } )
@@ -421,19 +462,25 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
     return salesInfo;
 } 
 
-const addSale = ( { product_id, quantity_sale, gross_price, base_price } ) => {
-    const _dt = new Date();
-    const year = _dt.getFullYear()
-    const month = ( _dt.getMonth() + 1 ) < 10 ? "0" + ( _dt.getMonth() + 1 ) : _dt.getMonth() + 1;
-    const day = ( _dt.getDate() + 1 ) < 10 ? "0" + ( _dt.getDate() + 1 ) : _dt.getDate() + 1;
+const addSale = ( { product_id, quantity_sale, gross_price_sale, base_price_sale } ) => {
+    return new Promise( resolve => {
+        const _dt = new Date();
+        const year = _dt.getFullYear()
+        const month = ( _dt.getMonth() + 1 ) < 10 ? "0" + ( _dt.getMonth() + 1 ) : _dt.getMonth() + 1;
+        const day = ( _dt.getDate() + 1 ) < 10 ? "0" + ( _dt.getDate() + 1 ) : _dt.getDate() + 1;
 
-    const _date = `${ year }-${ month }-${ day }`;
+        const date = `${ year }-${ month }-${ day }`;
 
-    products_data.forEach( ( sale, i ) => {
-        if ( sale.product_id === product_id && sale.date === _date && sale.gross_price === gross_price && sale.base_price === base_price )
-        {
-            products_data[ i ].quantity_sale = sale.quantity_sale + quantity_sale;
-        }
+        sales_data.push( {
+            id: sales_data[ sales_data.length - 1 ].id + 1,
+            product_id,
+            date,
+            base_price_sale,
+            gross_price_sale,
+            quantity_sale
+        } )
+
+        resolve( true )
     } )
 }
 

@@ -1,10 +1,13 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { provideEstablishmentData, provideSale } from '../../../tempFolder/temp';
 import DynamicControl from '../../../wrappers/DynamicControl';
-import { UserContext } from '../../UnderRootContent';
+import { FunctionContext, UserContext } from '../../UnderRootContent';
 import './SaleControl.css';
 
 const SaleControl = ( { updateProductSale=null } ) => {
+
+    const { upperCaser } = useContext( FunctionContext );
+
     /* init => choose establishment ( ch_es ) => choose product ( ch_prod ) */
     /* add */
     /* info add ( inf_add ) */
@@ -18,6 +21,8 @@ const SaleControl = ( { updateProductSale=null } ) => {
     const [ establishments, setEstablishments ] = useState( null );
     const [ products, setProducts ] = useState( null );
     const [ sale, setSale ] = useState( null );
+    const [ saleToList, setSaleToList ] = useState( [] );
+
     const [ saleData, setSaleData ] = useState( [] );
 
     const handleSaleData = obj => {
@@ -47,7 +52,7 @@ const SaleControl = ( { updateProductSale=null } ) => {
     const formGenerator = () => {
         if ( !curStage ) return null
 
-        if ( saleData[0]["purpose"] === "add" ) {
+        if ( saleData[ 0 ][ "purpose" ] === "add" ) {
             if ( thresholdStage !== 3 ) setThresholdStage(3)
 
             let store = "";
@@ -55,18 +60,18 @@ const SaleControl = ( { updateProductSale=null } ) => {
             let price = 0;
 
             establishments.forEach( est => {
-                if ( est.establishment_id === saleData[1].establishment_id ) store = est.establishment_name
+                if ( est.establishment_id === saleData[ 1 ].establishment_id ) store = est.establishment_name
             } )
 
             products.forEach( prod => {
-                if ( prod.product_id === saleData[2].product_id ) {
-                    product = `${prod.product_name}: ${prod.gross_price}`
+                if ( prod.product_id === saleData[ 2 ].product_id ) {
+                    product = `${ prod.product_name }: ${ prod.gross_price }`
                     price = prod.gross_price
                 }
             } )
 
             const confirmer = val => {
-                return `Total: ${ Number(val?.quantity) * price }`
+                return `Total: ${ Number( val?.quantity ) * price }`
             }
 
             const submitter = val => {
@@ -93,7 +98,7 @@ const SaleControl = ( { updateProductSale=null } ) => {
             if ( thresholdStage !== 4 ) setThresholdStage(4);
             if ( curStage === 3 ) {
                 setFormJunction( {
-                    list: sale || [],
+                    list: saleToList,
                     objNameLabel: "date",
                     objNameData: "sale_id"
                 } )
@@ -169,23 +174,62 @@ const SaleControl = ( { updateProductSale=null } ) => {
     }
 
     useEffect( () => {
-        if ( curStage === 1 ) loadEstab()
-        if ( curStage === 2 ) loadProd()
-        if ( curStage === 3 ) {
-            if ( saleData[0]?.purpose === "add" ) {
-                formGenerator();
-            } else {
-                loadSale();
-            }
-        }
-        if ( curStage === 4 ) formGenerator();
-    }, [ curStage ] )
-
-    useEffect( () => {
         if ( sale ) formGenerator();
     }, [ sale ] )
 
-    console.log( saleData )
+    const [ confirmInfos, setConfirmInfos ] = useState( null );
+
+    const confirmMachine = () => {
+        const title = upperCaser( saleData[0]?.purpose || "" );
+
+        let details = [];
+
+        saleData.forEach( ( item, i ) => {
+
+            if ( !i ) return;
+
+            const _label = upperCaser( Object.keys( item )[0].split("_")[0] );
+
+            let _info = "";
+
+            if ( _label === "Establishment" )
+            {
+                const { establishment_name } = establishments.find( est => est.establishment_id === item.establishment_id );
+                _info = upperCaser( establishment_name );
+            }
+
+            if ( _label === "Product" )
+            {
+                const { product_name } = products.find( prod => prod.product_id === item.product_id );
+                _info = upperCaser( product_name );
+            }
+
+            if ( _info ) details.push( { _label, _info } )
+
+        } )
+
+        setConfirmInfos( {
+            title,
+            details
+        } )
+    }
+
+    useEffect( () => {
+
+        if ( curStage === 1 ) loadEstab()
+        if ( curStage === 2 ) loadProd()
+
+        if ( curStage === 3 ) {
+            if ( saleData[0]?.purpose === "add" ) formGenerator();
+            else loadSale();
+        }
+
+        if ( curStage === 4 ) {
+            if ( saleData[0]?.purpose === "edit" ) formGenerator();
+            else confirmMachine();
+        }
+
+    }, [ curStage ] )
 
     return (
         <div className='width-standard'>
@@ -198,6 +242,7 @@ const SaleControl = ( { updateProductSale=null } ) => {
                 thresholdStage={ thresholdStage }
                 addStageHandler={ () => setCurStage( curStage + 1 ) }
                 removeStageHandler={ () => setCurStage( curStage - 1 ) }
+                confirmInfos={ confirmInfos }
             />
         </div>
     )
