@@ -83,222 +83,287 @@ let products_data = [
     }
 ]
 
+let transact_data = [
+    {
+        id: 0,
+        establishment_id: 0,
+        date: "2022-01-02"
+    },
+    {
+        id: 1,
+        establishment_id: 0,
+        date: "2022-01-05"
+    },
+    {
+        id: 2,
+        establishment_id: 0,
+        date: "2022-01-07"
+    },
+    {
+        id: 3,
+        establishment_id: 0,
+        date: "2022-01-08"
+    },
+    {
+        id: 4,
+        establishment_id: 0,
+        date: "2022-01-10"
+    },
+    {
+        id: 5,
+        establishment_id: 0,
+        date: "2022-01-12"
+    },
+    {
+        id: 6,
+        establishment_id: 0,
+        date: "2022-01-13"
+    },
+    {
+        id: 7,
+        establishment_id: 0,
+        date: "2022-01-14"
+    },
+    {
+        id: 8,
+        establishment_id: 0,
+        date: "2022-01-16"
+    },
+    {
+        id: 9,
+        establishment_id: 0,
+        date: "2022-01-19"
+    },
+    {
+        id: 10,
+        establishment_id: 0,
+        date: "2022-01-21"
+    },
+    {
+        id: 11,
+        establishment_id: 0,
+        date: "2022-01-24"
+    },
+    {
+        id: 12,
+        establishment_id: 0,
+        date: "2022-01-25"
+    },
+    {
+        id: 13,
+        establishment_id: 0,
+        date: "2022-01-27"
+    },
+]
+
 let sales_data = [
     {
         id: 0,
+        transact_id: 0,
         product_id: 0,
-        date: "2021-12-02",
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 3
     },
     {
         id: 1,
-        product_id: 0,
-        date: "2021-12-05",
+        transact_id: 0,
+        product_id: 1,
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 5
     },
     {
         id: 2,
+        transact_id: 1,
         product_id: 0,
-        date: "2021-12-12",
-        base_price_sale: 8,
+        base_price_sale: 10,
         gross_price_sale: 12,
-        quantity_sale: 3
+        quantity_sale: 8
     },
     {
         id: 3,
+        transact_id: 1,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 7
+    },
+    {
+        id: 4,
+        transact_id: 2,
         product_id: 0,
-        date: "2021-12-16",
-        base_price_sale: 8,
+        base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 4
     },
     {
-        id: 4,
-        product_id: 0,
-        date: "2021-12-18",
-        base_price_sale: 10,
-        gross_price_sale: 12,
-        quantity_sale: 2
-    },
-    {
         id: 5,
-        product_id: 0,
-        date: "2021-12-22",
-        base_price_sale: 10,
-        gross_price_sale: 12,
-        quantity_sale: 10
-    },
-    {
-        id: 6,
-        product_id: 0,
-        date: "2021-12-23",
-        base_price_sale: 10,
-        gross_price_sale: 12,
-        quantity_sale: 6
-    },
-    {
-        id: 7,
-        product_id: 0,
-        date: "2021-12-24",
+        transact_id: 2,
+        product_id: 1,
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 9
     },
     {
-        id: 8,
+        id: 6,
+        transact_id: 3,
         product_id: 0,
-        date: "2021-12-25",
         base_price_sale: 10,
         gross_price_sale: 12,
-        quantity_sale: 13
+        quantity_sale: 4
+    },
+    {
+        id: 7,
+        transact_id: 3,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 4
+    },
+    {
+        id: 8,
+        transact_id: 4,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 9
     },
     {
         id: 9,
-        product_id: 0,
-        date: "2021-12-26",
+        transact_id: 4,
+        product_id: 1,
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 12
     },
     {
         id: 10,
+        transact_id: 5,
         product_id: 0,
-        date: "2021-12-27",
         base_price_sale: 10,
         gross_price_sale: 12,
-        quantity_sale: 15
-    },
-    {
-        id: 11,
-        product_id: 1,
-        date: "2021-12-27",
-        base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 14
-    },
-    {
-        id: 12,
-        product_id: 0,
-        date: "2022-01-01",
-        base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 4
-    },
-    {
-        id: 13,
-        product_id: 0,
-        date: "2022-01-03",
-        base_price_sale: 10,
-        gross_price_sale: 13,
         quantity_sale: 8
     },
     {
-        id: 14,
-        product_id: 0,
-        date: "2022-01-04",
+        id: 11,
+        transact_id: 5,
+        product_id: 1,
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 10
+        gross_price_sale: 12,
+        quantity_sale: 8
+    },
+    {
+        id: 12,
+        transact_id: 6,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 8
+    },
+    {
+        id: 13,
+        transact_id: 6,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 9
+    },
+    {
+        id: 14,
+        transact_id: 7,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 3
     },
     {
         id: 15,
-        product_id: 0,
-        date: "2022-01-05",
+        transact_id: 7,
+        product_id: 1,
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 24
+        gross_price_sale: 12,
+        quantity_sale: 3
     },
     {
         id: 16,
+        transact_id: 8,
         product_id: 0,
-        date: "2022-01-06",
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 13
+        gross_price_sale: 12,
+        quantity_sale: 6
     },
     {
         id: 17,
-        product_id: 0,
-        date: "2022-01-08",
+        transact_id: 8,
+        product_id: 1,
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 17
+        gross_price_sale: 12,
+        quantity_sale: 6
     },
     {
         id: 18,
+        transact_id: 9,
         product_id: 0,
-        date: "2022-01-11",
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 14
+        gross_price_sale: 12,
+        quantity_sale: 7
     },
     {
         id: 19,
-        product_id: 0,
-        date: "2022-01-12",
+        transact_id: 9,
+        product_id: 1,
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 15
+        gross_price_sale: 12,
+        quantity_sale: 7
     },
     {
         id: 20,
+        transact_id: 10,
         product_id: 0,
-        date: "2022-01-13",
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 16
+        gross_price_sale: 12,
+        quantity_sale: 4
     },
     {
         id: 21,
-        product_id: 0,
-        date: "2022-01-15",
+        transact_id: 11,
+        product_id: 1,
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 13
+        gross_price_sale: 12,
+        quantity_sale: 5
     },
     {
         id: 22,
+        transact_id: 12,
         product_id: 0,
-        date: "2022-01-16",
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 16
-    },
-    {
-        id: 22,
-        product_id: 0,
-        date: "2022-01-18",
-        base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 16
-    },
-    {
-        id: 22,
-        product_id: 0,
-        date: "2022-01-20",
-        base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 15
+        gross_price_sale: 12,
+        quantity_sale: 7
     },
     {
         id: 23,
-        product_id: 0,
-        date: "2022-01-23",
+        transact_id: 12,
+        product_id: 1,
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 15
+        gross_price_sale: 12,
+        quantity_sale: 7
     },
     {
         id: 24,
+        transact_id: 13,
         product_id: 0,
-        date: "2022-01-23",
         base_price_sale: 10,
         gross_price_sale: 12,
-        quantity_sale: 14
+        quantity_sale: 8
+    },
+    {
+        id: 25,
+        transact_id: 13,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 4
     }
 ]
 
@@ -354,89 +419,79 @@ const provideEstablishmentData = ( userid = "none", establishment_id="none" ) =>
 }
 
 const provideSale = ( idContainer, orderBy="desc" ) => {
-    let establishment_id_arr = [];
-
-    if ( "userid" in idContainer ) {
-
-        employee_data.forEach( emp => {
-
-            if ( emp.userid === idContainer.userid ) establishment_id_arr.push( emp.establishment_id )
-
-        } )
-
-    } 
-    else if ( "establishment_id" in idContainer ) establishment_id_arr.push( idContainer.establishment_id )
-
-    let prod_id_arr = []
-
-    if ( "product_id" in idContainer ) prod_id_arr.push( idContainer.product_id )
-    else {
-        establishment_id_arr.forEach( est_id => {
-    
-            products_data.forEach( prod => {
-    
-                if ( est_id === prod.establishment_id ) prod_id_arr.push( prod.id )
-    
-            } )
-        } )
-    }
-
-    /* checks if product id arr has something, else, return empty */
-    if ( !prod_id_arr.length ) return []
-
     let salesInfo = [];
 
-    prod_id_arr.forEach( prod_id => {
-        // let found = false;
+    // transact id is more direct
+    if ( "transact_id" in idContainer ) {
         sales_data.forEach( sale => {
-            if ( sale.product_id === prod_id ) salesInfo.push( {
-                sale_id: sale.id,
-                product_id: prod_id,
-                date: sale.date,
-                base_price_sale: sale.base_price_sale,
-                gross_price_sale: sale.gross_price_sale,
-                quantity_sale: sale.quantity_sale
+            if ( sale.transact_id === idContainer.transact_id ) {
+                salesInfo( {
+                    sale_id: sale.id,
+                    product_id: sale.product_id,
+                    base_price_sale: sale.base_price_sale,
+                    gross_price_sale: sale.gross_price_sale,
+                    quantity_sale: sale.quantity_sale
+                } )
+            }
+        } )
+    } else {
+        let establishment_id_arr = [];
+
+        if ( "userid" in idContainer ) {
+    
+            employee_data.forEach( emp => {
+    
+                if ( emp.userid === idContainer.userid ) establishment_id_arr.push( emp.establishment_id )
+    
             } )
-            // if ( found ) {
-            //     salesInfo.forEach( ( _saleInf, i ) => {
-            //         if ( _saleInf.product_id === prod_id && _saleInf.date === sale.date ) {
-            //             const quantity_total = _saleInf.quantity_sale + sale.quantity_sale;
-
-            //             const saleTotal_base = 
-            //             ( _saleInf.base_price_sale * _saleInf.quantity_sale ) 
-            //             + 
-            //             ( sale.base_price_sale * sale.quantity_sale );
-
-            //             const saleTotal_gross = 
-            //             ( _saleInf.gross_price_sale * _saleInf.quantity_sale ) 
-            //             + 
-            //             ( sale.gross_price_sale * sale.quantity_sale );
-
-            //             const newSaleBase = saleTotal_base / quantity_total;
-            //             const newSaleGross = saleTotal_gross / quantity_total;
-
-            //             salesInfo[ i ].quantity_sale = quantity_total;
-            //             salesInfo[ i ].base_price_sale = newSaleBase;
-            //             salesInfo[ i ].gross_price_sale = newSaleGross;
-            //         } 
-            //     } )
-            // } else {
-            //     if ( sale.product_id === prod_id ) {
-            //         found = true;
-
-            //         salesInfo.push( {
-            //             sale_id: sale.id,
-            //             product_id: prod_id,
-            //             date: sale.date,
-            //             base_price_sale: sale.base_price_sale,
-            //             gross_price_sale: sale.gross_price_sale,
-            //             quantity_sale: sale.quantity_sale
-            //         } )
-            //     }
-            // }
+    
+        } 
+        else if ( "establishment_id" in idContainer ) establishment_id_arr.push( idContainer.establishment_id )
+    
+        let prod_id_arr = []
+    
+        if ( "product_id" in idContainer ) prod_id_arr.push( idContainer.product_id )
+        else {
+            establishment_id_arr.forEach( est_id => {
+        
+                products_data.forEach( prod => {
+        
+                    if ( est_id === prod.establishment_id ) prod_id_arr.push( prod.id )
+        
+                } )
+            } )
+        }
+    
+        /* checks if product id arr has something, else, return empty */
+        if ( !prod_id_arr.length ) return []
+    
+        prod_id_arr.forEach( prod_id => {
+            // let found = false;
+            sales_data.forEach( sale => {
+                if ( sale.product_id === prod_id ) {
+                    let date = "";
+    
+                    transact_data.forEach( trans => {
+                        if ( trans.id === sale.transact_id ) date = trans.date;
+                    } )
+    
+                    if ( !date ) return;
+    
+                    salesInfo.push( {
+                        sale_id: sale.id,
+                        product_id: prod_id,
+                        date,
+                        base_price_sale: sale.base_price_sale,
+                        gross_price_sale: sale.gross_price_sale,
+                        quantity_sale: sale.quantity_sale
+                    } )
+                }
+            } )
+    
         } )
 
-    } )
+    }
+
     let orderedSales = [];
 
     orderedSales = salesInfo.sort( ( a, b ) => {
@@ -462,6 +517,28 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
     return salesInfo;
 } 
 
+const provideTransacts = ( establishment_id ) => {
+    let transacts = [];
+
+    transact_data.forEach( trans => {
+        if ( trans.establishment_id === establishment_id ) {
+            let saleTotal = 0;
+
+            sales_data.forEach( sale => {
+                if ( sale.transact_id === trans.id ) saleTotal = saleTotal + ( sale.gross_price_sale * sale.quantity_sale );
+            } )
+
+            transacts.push( {
+                transaction_id: trans.id,
+                date: trans.date,
+                saleTotal
+            } )
+        }
+    } )
+
+    return transacts;
+}
+
 const addSale = ( { product_id, quantity_sale, gross_price_sale, base_price_sale } ) => {
     return new Promise( resolve => {
         const _dt = new Date();
@@ -484,4 +561,4 @@ const addSale = ( { product_id, quantity_sale, gross_price_sale, base_price_sale
     } )
 }
 
-export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale }
+export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale, provideTransacts }

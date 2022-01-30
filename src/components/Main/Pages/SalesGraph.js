@@ -21,7 +21,7 @@ const selectListDays = [
     }
 ]
 
-const SalesGraph = ( { titleGraph="", className="default-sales-graph", parentProductSale="none", cSelect=false, nextPrevBtns=false, whichToDisplay="default", colors=[ "orange", "blue" ] } ) => {
+const SalesGraph = ( { titleGraph="", graphClass="default-sales-graph", parentProductSale="none", cSelect=false, nextPrevBtns=false, whichToDisplay="default", colors=[ "orange", "blue" ] } ) => {
     const { user } = useContext( UserContext );
     const { getDateDifference } = useContext( FunctionContext );
     // this will tell which to display
@@ -380,7 +380,7 @@ const SalesGraph = ( { titleGraph="", className="default-sales-graph", parentPro
     }
 
     return (
-        <div className={`sales-graph-con ${ daysToDisp === "fm" ? daysToDisp : "d" + daysToDisp }-length ${className}-con`}>
+        <div className={`sales-graph-con ${ daysToDisp === "fm" ? daysToDisp : "d" + daysToDisp }-length ${ graphClass }-con`}>
             <div className="title-graph">
                 <h3>
                     { titleGraph }

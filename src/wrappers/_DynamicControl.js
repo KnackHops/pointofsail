@@ -159,7 +159,7 @@ const confirmPanel = ( { title, details } ) => {
 
 }
 
-const DynamicControl = ( { dynamicClass, dynamicDataHandler, thresholdStage=0, arrControl=null, curStage=null, addStageHandler=null, removeStageHandler=null } ) => {
+const _DynamicControl = ( { dynamicClass, dynamicDataHandler, thresholdStage=0, arrControl=null, curStage=null, addStageHandler=null, removeStageHandler=null } ) => {
     const btnStageNext = data => {
         dynamicDataHandler( data );
         addStageHandler();
@@ -225,4 +225,4 @@ const DynamicControl = ( { dynamicClass, dynamicDataHandler, thresholdStage=0, a
     )
 }
 
-export default DynamicControl;
+export default _DynamicControl;

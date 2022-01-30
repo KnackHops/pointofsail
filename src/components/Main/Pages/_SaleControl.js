@@ -1,10 +1,10 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { provideEstablishmentData, provideSale } from '../../../tempFolder/temp';
-import DynamicControl from '../../../wrappers/DynamicControl';
+import DynamicControl from '../../../wrappers/_DynamicControl';
 import { FunctionContext, UserContext } from '../../UnderRootContent';
 import './SaleControl.css';
 
-const SaleControl = ( { updateProductSale=null } ) => {
+const _SaleControl = ( { updateProductSale=null } ) => {
 
     const { upperCaser } = useContext( FunctionContext );
 
@@ -248,4 +248,4 @@ const SaleControl = ( { updateProductSale=null } ) => {
     )
 }
 
-export default SaleControl;
+export default _SaleControl;

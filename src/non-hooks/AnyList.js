@@ -1,6 +1,12 @@
 import { Link, NavLink } from "react-router-dom"
 
 const AnyList = ( { arrList, listClass, fallbackDisplay="list empty!" } ) => {
+    // arrList
+    // label, whichEl, passPara, parentsPara
+    // whichEl can be
+    // p, link, navlink, btn
+    // passPara, parameters to be passed on the item inside
+    // parentsPara, parameters passed on the paragraph holding the item inside
     return (
         <>
         { arrList.length ? 
