@@ -350,5 +350,3 @@ const DynamicControl = ( { curStage=0, stageHandler=null, stages = [ { } ], stag
         </div>
     )
 }
-
- export default DynamicControl;

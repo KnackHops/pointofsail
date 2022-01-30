@@ -31,7 +31,6 @@ const ProductPage = ( { productList } ) => {
     useEffect( () => {
         if ( product ) {
             const sales = provideSale( { "product_id": product.product_id } )
-
             setProductSale( sales )
         }
     }, [ product ] )

@@ -4,7 +4,7 @@ import DynamicControl from '../../../wrappers/_DynamicControl';
 import { FunctionContext, UserContext } from '../../UnderRootContent';
 import './SaleControl.css';
 
-const _SaleControl = ( { updateProductSale=null } ) => {
+const SaleControl = ( { updateProductSale=null } ) => {
 
     const { upperCaser } = useContext( FunctionContext );
 
@@ -247,5 +247,3 @@ const _SaleControl = ( { updateProductSale=null } ) => {
         </div>
     )
 }
-
-export default _SaleControl;

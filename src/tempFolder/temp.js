@@ -11,6 +11,49 @@ let login_data = [
     }
 ]
 
+let customer_data = [
+    {
+        id: 0,
+        name: "aldrian telan",
+        address: "zone 2 san mariano",
+        mobile: "09987654321"
+    }
+]
+
+let customer_supply = [
+    {
+        id: 0,
+        customer_id: 0,
+        transact_id: 17,
+        date: "01-30-2022",
+        soft_cap: 1,
+        // 1 x whatever is on time_span
+        // if end, means one month end of soft cap
+        // soft cap means warning the user
+        // if 0, no soft cap
+        warning_span: "end",
+        // end, daily, weekly or days
+        // this warns the owner / people who have permission
+        // in regards to dues
+        hard_cap: 3,
+        // hard cap, stops 
+        interest: 0,
+        interest_application: "cap",
+        // cap, due. when reached the interest will be used
+        time_span: "end"
+        // either days, or end of each month
+    }
+]
+
+let due_data = [
+    {
+        id: 0,
+        customer_id: 0,
+        transact_id: 17,
+        date: "02-28-2022"
+    }
+]
+
 let user_data = [
     {
         id: 0,
@@ -29,11 +72,13 @@ let user_data = [
 let establishment_data = [
     {
         id: 0,
-        name: "admin store"
+        name: "admin store",
+        mobile: "09123456789"
     },
     {
         id: 1,
-        name: "admin store 2"
+        name: "admin store 2",
+        mobile: "09987654321"
     }
 ]
 
@@ -80,6 +125,16 @@ let products_data = [
         base_price: 10,
         gross_price: 12,
         quantity: 20
+    },
+    {
+        id: 2,
+        establishment_id: 0,
+        name: "internet service",
+        barcode: "barcodesprite",
+        qrcode: "qrsprite",
+        base_price: 0,
+        gross_price: 1200,
+        quantity: "infinite"
     }
 ]
 
@@ -87,73 +142,111 @@ let transact_data = [
     {
         id: 0,
         establishment_id: 0,
-        date: "2022-01-02"
+        date: "2022-01-02",
+        paidDate: "2022-01-02"
     },
     {
         id: 1,
         establishment_id: 0,
-        date: "2022-01-05"
+        date: "2022-01-05",
+        paidDate: "2022-01-05"
     },
     {
         id: 2,
         establishment_id: 0,
-        date: "2022-01-07"
+        date: "2022-01-07",
+        paidDate: "2022-01-07"
     },
     {
         id: 3,
         establishment_id: 0,
-        date: "2022-01-08"
+        date: "2022-01-08",
+        paidDate: "2022-01-08"
     },
     {
         id: 4,
         establishment_id: 0,
-        date: "2022-01-10"
+        date: "2022-01-10",
+        paidDate: "2022-01-10"
     },
     {
         id: 5,
         establishment_id: 0,
-        date: "2022-01-12"
+        date: "2022-01-12",
+        paidDate: "2022-01-12"
     },
     {
         id: 6,
         establishment_id: 0,
-        date: "2022-01-13"
+        date: "2022-01-13",
+        paidDate: "2022-01-13"
     },
     {
         id: 7,
         establishment_id: 0,
-        date: "2022-01-14"
+        date: "2022-01-14",
+        paidDate: "2022-01-14"
     },
     {
         id: 8,
         establishment_id: 0,
-        date: "2022-01-16"
+        date: "2022-01-16",
+        paidDate: "2022-01-16"
     },
     {
         id: 9,
         establishment_id: 0,
-        date: "2022-01-19"
+        date: "2022-01-19",
+        paidDate: "2022-01-19"
     },
     {
         id: 10,
         establishment_id: 0,
-        date: "2022-01-21"
+        date: "2022-01-21",
+        paidDate: "2022-01-21"
     },
     {
         id: 11,
         establishment_id: 0,
-        date: "2022-01-24"
+        date: "2022-01-24",
+        paidDate: "2022-01-24"
     },
     {
         id: 12,
         establishment_id: 0,
-        date: "2022-01-25"
+        date: "2022-01-25",
+        paidDate: "2022-01-25"
     },
     {
         id: 13,
         establishment_id: 0,
-        date: "2022-01-27"
+        date: "2022-01-27",
+        paidDate: "2022-01-27"
     },
+    {
+        id: 14,
+        establishment_id: 0,
+        date: "2022-01-28",
+        paidDate: "2022-01-28"
+    },
+    {
+        id: 15,
+        establishment_id: 0,
+        date: "2022-01-29",
+        paidDate: "2022-01-29"
+    },
+    {
+        id: 16,
+        establishment_id: 0,
+        date: "2022-01-30",
+        paidDate: "2022-01-30"
+    },
+    {
+        id: 17,
+        establishment_id: 0,
+        date: "2022-01-30",
+        paidDate: ""
+    }
 ]
 
 let sales_data = [
@@ -364,6 +457,46 @@ let sales_data = [
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 4
+    },
+    {
+        id: 25,
+        transact_id: 14,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 13
+    },
+    {
+        id: 26,
+        transact_id: 15,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 5
+    },
+    {
+        id: 27,
+        transact_id: 16,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 5
+    },
+    {
+        id: 28,
+        transact_id: 16,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 8
+    },
+    {
+        id: 29,
+        transact_id: 17,
+        product_id: 2,
+        base_price_sale: 0,
+        gross_price_sale: 1200,
+        quantity_sale: 1
     }
 ]
 
@@ -425,12 +558,25 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
     if ( "transact_id" in idContainer ) {
         sales_data.forEach( sale => {
             if ( sale.transact_id === idContainer.transact_id ) {
+                let date = "";
+                let paidDate = "";
+
+                transact_data.forEach( trans => {
+                    if ( trans.id === idContainer.transact_id ) {
+                        date = trans.date
+                        paidDate = trans.paidDate
+                    }
+                } )
+
                 salesInfo( {
                     sale_id: sale.id,
                     product_id: sale.product_id,
+                    transact_id: sale.transact_id,
+                    date,
+                    paidDate,
                     base_price_sale: sale.base_price_sale,
                     gross_price_sale: sale.gross_price_sale,
-                    quantity_sale: sale.quantity_sale
+                    quantity_sale: sale.quantity_sale,
                 } )
             }
         } )
@@ -470,9 +616,10 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
             sales_data.forEach( sale => {
                 if ( sale.product_id === prod_id ) {
                     let date = "";
+                    let paidDate = "";
     
                     transact_data.forEach( trans => {
-                        if ( trans.id === sale.transact_id ) date = trans.date;
+                        if ( trans.id === sale.transact_id ) [ date, paidDate ] = [ trans.date, trans.paidDate ]
                     } )
     
                     if ( !date ) return;
@@ -480,7 +627,9 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
                     salesInfo.push( {
                         sale_id: sale.id,
                         product_id: prod_id,
+                        transact_id: sale.transact_id,
                         date,
+                        paidDate,
                         base_price_sale: sale.base_price_sale,
                         gross_price_sale: sale.gross_price_sale,
                         quantity_sale: sale.quantity_sale
@@ -492,9 +641,7 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
 
     }
 
-    let orderedSales = [];
-
-    orderedSales = salesInfo.sort( ( a, b ) => {
+    let orderedSales = salesInfo.sort( ( a, b ) => {
         if ( a.date.slice( 5, 7 ) > b.date.slice( 5, 7 ) ) {
             if ( orderBy === "asc" ) return -1
             else return 1
@@ -514,7 +661,7 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
         return 0
     } )
 
-    return salesInfo;
+    return orderedSales;
 } 
 
 const provideTransacts = ( establishment_id ) => {
@@ -537,28 +684,6 @@ const provideTransacts = ( establishment_id ) => {
     } )
 
     return transacts;
-}
-
-const addSale = ( { product_id, quantity_sale, gross_price_sale, base_price_sale } ) => {
-    return new Promise( resolve => {
-        const _dt = new Date();
-        const year = _dt.getFullYear()
-        const month = ( _dt.getMonth() + 1 ) < 10 ? "0" + ( _dt.getMonth() + 1 ) : _dt.getMonth() + 1;
-        const day = ( _dt.getDate() + 1 ) < 10 ? "0" + ( _dt.getDate() + 1 ) : _dt.getDate() + 1;
-
-        const date = `${ year }-${ month }-${ day }`;
-
-        sales_data.push( {
-            id: sales_data[ sales_data.length - 1 ].id + 1,
-            product_id,
-            date,
-            base_price_sale,
-            gross_price_sale,
-            quantity_sale
-        } )
-
-        resolve( true )
-    } )
 }
 
 export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale, provideTransacts }

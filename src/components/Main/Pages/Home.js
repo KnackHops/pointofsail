@@ -22,7 +22,8 @@ const Home = () => {
         <SectionWrappers sectionTitle={ <> <h1> Home </h1> <h2> Sales </h2> </> }>
             { productSale &&
                 <>
-                    <SalesGraph titleGraph={ "Admin view" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } colors={ [ "green", "red", "red", "green", "blue" ] } />
+                    {/* <SalesGraph titleGraph={ "Admin view" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } colors={ [ "green", "orange", "orange", "green", "red", "red", "blue" ] } /> */}
+                    <SalesGraph titleGraph={ "Unpaid" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="unpaid-graph" whichToDisplay="unpaid" colors={ [ "green", "orange", "red", "red", "blue" ] } />
                     <SalesGraph titleGraph={ "Gross" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="gross-graph" whichToDisplay="gross" colors={ [ "red", "blue" ] } />
                     <SalesGraph titleGraph={ "Net" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="net-graph" whichToDisplay="net" colors={ [ "green", "blue" ] } />
                     <SalesGraph titleGraph={ "Prices" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="prices-graph" whichToDisplay="prices" colors={ [ "green", "red" ] } />
