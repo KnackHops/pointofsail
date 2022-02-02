@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { provideSale } from "../../../tempFolder/temp";
+import { FunctionContext } from "../../UnderRootContent";
 import SalesGraph from "./SalesGraph";
 import SalesList from "./SalesList";
 
 const ProductPage = ( { productList } ) => {
+    const { upperCaser } = useContext( FunctionContext );
+
     const { product_id } = useParams();
     const [ product, setProduct ] = useState( null );
     const navigate = useNavigate();
@@ -42,7 +45,10 @@ const ProductPage = ( { productList } ) => {
                     product?.product_name
                 }
             </h3>
-            { productSale && <SalesGraph productSale={ productSale } parentProductSale={ productSale }  cSelect={ true } nextPrevBtns={ true } /> }
+            { productSale && <> 
+                <SalesGraph titleGraph={ `${ upperCaser( product?.product_name ) } Sales` } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } colors={ [ "green", "orange", "orange", "green", "red", "red", "blue" ] } /> 
+                <SalesGraph titleGraph={ "Prices" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="prices-graph" whichToDisplay="prices" colors={ [ "green", "red" ] } /> 
+            </> }
             <SalesList parentProductSale={ productSale } />
         </div>
     )

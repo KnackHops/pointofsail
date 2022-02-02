@@ -26,7 +26,7 @@ const Home = () => {
                     <SalesGraph titleGraph={ "Unpaid" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="unpaid-graph" whichToDisplay="unpaid" colors={ [ "green", "orange", "red", "red", "blue" ] } />
                     <SalesGraph titleGraph={ "Gross" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="gross-graph" whichToDisplay="gross" colors={ [ "red", "blue" ] } />
                     <SalesGraph titleGraph={ "Net" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="net-graph" whichToDisplay="net" colors={ [ "green", "blue" ] } />
-                    <SalesGraph titleGraph={ "Prices" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="prices-graph" whichToDisplay="prices" colors={ [ "green", "red" ] } />
+                    {/* <SalesGraph titleGraph={ "Prices" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } graphClass="prices-graph" whichToDisplay="prices" colors={ [ "green", "red" ] } /> */}
                 </>
             }
         </SectionWrappers>

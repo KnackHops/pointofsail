@@ -5,6 +5,7 @@ import SectionWrappers from "../../../wrappers/SectionWrappers"
 import { UserContext } from "../../UnderRootContent";
 import EstablishmentList from "./EstablishmentList";
 import EstablishmentPage from "./EstablishmentPage";
+import EstablishmentWrapper from "./EstablishmentWrapper";
 
 const Establishment = () => {
     const { user } = useContext( UserContext );
@@ -18,8 +19,10 @@ const Establishment = () => {
     return (
         <SectionWrappers sectionTitle={ <h1>Establishment</h1> }>
             <Routes>
-                <Route path={"own"} element={ <EstablishmentList establishments={ establishments } /> }/>
-                <Route path={"id:establishment_id/*"} element={ <EstablishmentPage establishments={ establishments }/> }/>
+                <Route path={ "/" } element={ <EstablishmentWrapper /> }>
+                    <Route path={"own"} element={ <EstablishmentList establishments={ establishments } /> }/>
+                    <Route path={"id:establishment_id/*"} element={ <EstablishmentPage establishments={ establishments }/> }/>
+                </Route>
             </Routes>
         </SectionWrappers>
     )

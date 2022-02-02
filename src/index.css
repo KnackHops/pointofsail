@@ -30,6 +30,10 @@ html, body, #root, #under_root {
   width: 100%;
 }
 
+body {
+  font-size: 1.25rem;
+}
+
 button {
   border: .1rem solid black;
   outline: none;

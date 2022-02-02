@@ -12,15 +12,46 @@ let login_data = [
 ]
 
 let customer_data = [
+    // not every customer will be given an entry here
+    // only customers that wants continous supply
+    // pays credit
+    // or customers that have their own prices
     {
         id: 0,
+        establishment_id: 0,
         name: "aldrian telan",
-        address: "zone 2 san mariano",
+        address: "zone 2, san mariano",
         mobile: "09987654321"
+    },
+    {
+        id: 1,
+        establishment_id: 0,
+        name: "barry barry",
+        address: "zone 2, san mariano",
+        mobile: "09987654322"
     }
 ]
 
-let customer_supply = [
+let customer_price_point_data = [
+    // special price for certain customers
+    // this is a per product basis rather than customer basis
+    // when checking out/ creating a new transaction based off of
+    // continous supply
+    // this is applied automatically
+    // of course, the option to change it per transaction is possible
+    // if user wants to remove/change this "permanently", go to establishment
+    // customers
+    {
+        id: 0,
+        product_id: 2,
+        customer_id: 0,
+        price: 1150
+    }
+]
+
+let customer_supply_data = [
+    // this won't be deleted when fulfilled
+    // rather it works as a reference point for the next "time_span" end
     {
         id: 0,
         customer_id: 0,
@@ -31,10 +62,6 @@ let customer_supply = [
         // if end, means one month end of soft cap
         // soft cap means warning the user
         // if 0, no soft cap
-        warning_span: "end",
-        // end, daily, weekly or days
-        // this warns the owner / people who have permission
-        // in regards to dues
         hard_cap: 3,
         // hard cap, stops 
         interest: 0,
@@ -46,6 +73,10 @@ let customer_supply = [
 ]
 
 let due_data = [
+    // each time time_span is reached on the customer_supply_data
+    // IF this is not a one time due
+    // we create another entry here
+    // we delete fulfilled dues
     {
         id: 0,
         customer_id: 0,
@@ -139,6 +170,21 @@ let products_data = [
 ]
 
 let transact_data = [
+    // each transaction may consist of multiple sale products
+    // the date is the initial date for the transaction
+    // the paidDate as it's name implies
+    // is the date where it was paid
+    // on normal circumstances, the date and the paidDate will be the same
+    // but if the customer is using credit to buy something
+    // we create an entry WITHOUT paidDate
+    // soon after, we create an entry on due
+    // where it tells the due date for the customer
+    // warning the user if the due is nearing
+    // IF the product is meant to be in continuous supply
+    // we create the an entry on customer_supply as well
+    // with informations regarding the time span in which
+    // new transaction/date occurs
+    // as well as interest, soft cap and hard cap
     {
         id: 0,
         establishment_id: 0,
@@ -232,24 +278,27 @@ let transact_data = [
     {
         id: 15,
         establishment_id: 0,
-        date: "2022-01-29",
+        date: "2022-01-30",
         paidDate: "2022-01-29"
     },
     {
         id: 16,
         establishment_id: 0,
-        date: "2022-01-30",
+        date: "2022-01-31",
         paidDate: "2022-01-30"
     },
     {
         id: 17,
         establishment_id: 0,
-        date: "2022-01-30",
+        date: "2022-02-01",
         paidDate: ""
     }
 ]
 
 let sales_data = [
+    // sales are product specific entries
+    // for sale there's a corresponding product
+    // but many sales can exist inside a transaction
     {
         id: 0,
         transact_id: 0,
@@ -686,4 +735,58 @@ const provideTransacts = ( establishment_id ) => {
     return transacts;
 }
 
-export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale, provideTransacts }
+const provideCustomers = ( establishment_id=null ) => {
+    const customers = [];
+
+    customer_data.forEach( cust => {
+        if ( cust.establishment_id === establishment_id ) {
+            customers.push( {
+                customer_id: cust.id,
+                customer_name: cust.name,
+                customer_address: cust.address,
+                customer_mobile: cust.mobile
+            } )
+        }
+    } )
+
+    return customers;
+}
+
+const provideSpecificCustomer = customer_id => {
+    const customer = {};
+
+    customer_data.forEach( cust => {
+        if ( cust.id === customer_id ) {
+            customer.customer_id = cust.id;
+            customer.customer_name = cust.name;
+            customer.customer_address = cust.address;
+            customer.customer_mobile = cust.mobile;
+
+        }
+    } )
+
+    const price_point = [];
+
+    customer_price_point_data.forEach( cust_pp => {
+        if ( cust_pp.customer_id === customer_id ) {
+            products_data.forEach( prod => {
+                if ( cust_pp.product_id === prod.id ) {
+                    price_point.push( {
+                        id: cust_pp.id,
+                        product_id: prod.id,
+                        product_name: prod.name,
+                        base_price: prod.base_price,
+                        orig_price: prod.gross_price,
+                        price: cust_pp.price
+                    } )
+                }
+            } )
+        }
+    } )
+
+    customer.price_point = price_point;
+
+    return customer;
+}
+
+export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale, provideTransacts, provideCustomers, provideSpecificCustomer }
