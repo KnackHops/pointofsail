@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import DynamicControl from '../../../wrappers/DynamicControl';
+import DynamicControl from '../../../wrappers/_DynamicControl';
 import './ProductControl.css';
 
 const ProductControl = () => {
@@ -34,5 +34,3 @@ const ProductControl = () => {
         <div></div>
     )
 }
-
-export default ProductControl;

@@ -41,7 +41,7 @@ const AsideNav = () => {
         ]
     }, [ user ] )
     return (
-        <AsideWrapper  asideClass={"aside-nav-con"}>
+        <AsideWrapper  asideClass={"fd aside-nav-con"}>
             <nav className="aside-nav">
                 <AnyList arrList={ arrList } listClass={"aside-nav-list fd"} />
             </nav>

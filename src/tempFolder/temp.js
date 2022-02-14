@@ -1,4 +1,4 @@
-const login_data = [
+let login_data = [
     {
         userid: 0,
         username: "admin0",
@@ -11,7 +11,81 @@ const login_data = [
     }
 ]
 
-const user_data = [
+let customer_data = [
+    // not every customer will be given an entry here
+    // only customers that wants continous supply
+    // pays credit
+    // or customers that have their own prices
+    {
+        id: 0,
+        establishment_id: 0,
+        name: "aldrian telan",
+        address: "zone 2, san mariano",
+        mobile: "09987654321"
+    },
+    {
+        id: 1,
+        establishment_id: 0,
+        name: "barry barry",
+        address: "zone 2, san mariano",
+        mobile: "09987654322"
+    }
+]
+
+let customer_price_point_data = [
+    // special price for certain customers
+    // this is a per product basis rather than customer basis
+    // when checking out/ creating a new transaction based off of
+    // continous supply
+    // this is applied automatically
+    // of course, the option to change it per transaction is possible
+    // if user wants to remove/change this "permanently", go to establishment
+    // customers
+    {
+        id: 0,
+        product_id: 2,
+        customer_id: 0,
+        price: 1150
+    }
+]
+
+let customer_supply_data = [
+    // this won't be deleted when fulfilled
+    // rather it works as a reference point for the next "time_span" end
+    {
+        id: 0,
+        customer_id: 0,
+        transact_id: 17,
+        date: "01-30-2022",
+        soft_cap: 1,
+        // 1 x whatever is on time_span
+        // if end, means one month end of soft cap
+        // soft cap means warning the user
+        // if 0, no soft cap
+        hard_cap: 3,
+        // hard cap, stops 
+        interest: 0,
+        interest_application: "cap",
+        // cap, due. when reached the interest will be used
+        time_span: "end"
+        // either days, or end of each month
+    }
+]
+
+let due_data = [
+    // each time time_span is reached on the customer_supply_data
+    // IF this is not a one time due
+    // we create another entry here
+    // we delete fulfilled dues
+    {
+        id: 0,
+        customer_id: 0,
+        transact_id: 17,
+        date: "02-28-2022"
+    }
+]
+
+let user_data = [
     {
         id: 0,
         name: "Admin Me",
@@ -26,18 +100,20 @@ const user_data = [
     }
 ]
 
-const establishment_data = [
+let establishment_data = [
     {
         id: 0,
-        name: "admin store"
+        name: "admin store",
+        mobile: "09123456789"
     },
     {
         id: 1,
-        name: "admin store 2"
+        name: "admin store 2",
+        mobile: "09987654321"
     }
 ]
 
-const employee_data = [
+let employee_data = [
     {
         userid: 0,
         establishment_id: 0,
@@ -60,7 +136,7 @@ const employee_data = [
     }
 ]
 
-const products_data = [
+let products_data = [
     {
         id: 0,
         establishment_id: 0,
@@ -80,105 +156,396 @@ const products_data = [
         base_price: 10,
         gross_price: 12,
         quantity: 20
+    },
+    {
+        id: 2,
+        establishment_id: 0,
+        name: "internet service",
+        barcode: "barcodesprite",
+        qrcode: "qrsprite",
+        base_price: 0,
+        gross_price: 1200,
+        quantity: "infinite"
     }
 ]
 
-const sales_data = [
+let transact_data = [
+    // each transaction may consist of multiple sale products
+    // the date is the initial date for the transaction
+    // the paidDate as it's name implies
+    // is the date where it was paid
+    // on normal circumstances, the date and the paidDate will be the same
+    // but if the customer is using credit to buy something
+    // we create an entry WITHOUT paidDate
+    // soon after, we create an entry on due
+    // where it tells the due date for the customer
+    // warning the user if the due is nearing
+    // IF the product is meant to be in continuous supply
+    // we create the an entry on customer_supply as well
+    // with informations regarding the time span in which
+    // new transaction/date occurs
+    // as well as interest, soft cap and hard cap
     {
         id: 0,
+        establishment_id: 0,
+        date: "2022-01-18",
+        paidDate: "2022-01-18"
+    },
+    {
+        id: 1,
+        establishment_id: 0,
+        date: "2022-01-21",
+        paidDate: "2022-01-21"
+    },
+    {
+        id: 2,
+        establishment_id: 0,
+        date: "2022-01-23",
+        paidDate: "2022-01-23"
+    },
+    {
+        id: 3,
+        establishment_id: 0,
+        date: "2022-01-24",
+        paidDate: "2022-01-24"
+    },
+    {
+        id: 4,
+        establishment_id: 0,
+        date: "2022-01-26",
+        paidDate: "2022-01-26"
+    },
+    {
+        id: 5,
+        establishment_id: 0,
+        date: "2022-01-27",
+        paidDate: "2022-01-27"
+    },
+    {
+        id: 6,
+        establishment_id: 0,
+        date: "2022-01-29",
+        paidDate: "2022-01-29"
+    },
+    {
+        id: 7,
+        establishment_id: 0,
+        date: "2022-01-30",
+        paidDate: "2022-01-30"
+    },
+    {
+        id: 8,
+        establishment_id: 0,
+        date: "2022-02-01",
+        paidDate: "2022-02-01"
+    },
+    {
+        id: 9,
+        establishment_id: 0,
+        date: "2022-02-02",
+        paidDate: "2022-02-02"
+    },
+    {
+        id: 10,
+        establishment_id: 0,
+        date: "2022-02-03",
+        paidDate: "2022-02-03"
+    },
+    {
+        id: 11,
+        establishment_id: 0,
+        date: "2022-02-05",
+        paidDate: "2022-02-05"
+    },
+    {
+        id: 12,
+        establishment_id: 0,
+        date: "2022-02-06",
+        paidDate: "2022-02-06"
+    },
+    {
+        id: 13,
+        establishment_id: 0,
+        date: "2022-02-07",
+        paidDate: "2022-02-07"
+    },
+    {
+        id: 14,
+        establishment_id: 0,
+        date: "2022-02-09",
+        paidDate: "2022-02-09"
+    },
+    {
+        id: 15,
+        establishment_id: 0,
+        date: "2022-02-10",
+        paidDate: "2022-02-10"
+    },
+    {
+        id: 16,
+        establishment_id: 0,
+        date: "2022-02-12",
+        paidDate: "2022-02-12"
+    },
+    {
+        id: 17,
+        establishment_id: 0,
+        date: "2022-02-13",
+        paidDate: ""
+    }
+]
+
+let sales_data = [
+    // sales are product specific entries
+    // for sale there's a corresponding product
+    // but many sales can exist inside a transaction
+    {
+        id: 0,
+        transact_id: 0,
         product_id: 0,
-        date: "2021-12-02",
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 3
     },
     {
         id: 1,
-        product_id: 0,
-        date: "2021-12-05",
+        transact_id: 0,
+        product_id: 1,
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 5
     },
     {
         id: 2,
+        transact_id: 1,
         product_id: 0,
-        date: "2021-12-12",
-        base_price_sale: 8,
+        base_price_sale: 10,
         gross_price_sale: 12,
-        quantity_sale: 3
+        quantity_sale: 8
     },
     {
         id: 3,
+        transact_id: 1,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 7
+    },
+    {
+        id: 4,
+        transact_id: 2,
         product_id: 0,
-        date: "2021-12-16",
-        base_price_sale: 8,
+        base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 4
     },
     {
-        id: 4,
-        product_id: 0,
-        date: "2021-12-18",
-        base_price_sale: 10,
-        gross_price_sale: 12,
-        quantity_sale: 2
-    },
-    {
         id: 5,
-        product_id: 0,
-        date: "2021-12-22",
-        base_price_sale: 10,
-        gross_price_sale: 12,
-        quantity_sale: 10
-    },
-    {
-        id: 6,
-        product_id: 0,
-        date: "2021-12-23",
-        base_price_sale: 10,
-        gross_price_sale: 12,
-        quantity_sale: 6
-    },
-    {
-        id: 7,
-        product_id: 0,
-        date: "2021-12-24",
+        transact_id: 2,
+        product_id: 1,
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 9
     },
     {
-        id: 8,
+        id: 6,
+        transact_id: 3,
         product_id: 0,
-        date: "2021-12-25",
         base_price_sale: 10,
         gross_price_sale: 12,
-        quantity_sale: 13
+        quantity_sale: 4
+    },
+    {
+        id: 7,
+        transact_id: 3,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 4
+    },
+    {
+        id: 8,
+        transact_id: 4,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 9
     },
     {
         id: 9,
-        product_id: 0,
-        date: "2021-12-26",
+        transact_id: 4,
+        product_id: 1,
         base_price_sale: 10,
         gross_price_sale: 12,
         quantity_sale: 12
     },
     {
         id: 10,
+        transact_id: 5,
         product_id: 0,
-        date: "2021-12-27",
         base_price_sale: 10,
         gross_price_sale: 12,
-        quantity_sale: 15
+        quantity_sale: 8
     },
     {
         id: 11,
+        transact_id: 5,
         product_id: 1,
-        date: "2021-12-27",
         base_price_sale: 10,
-        gross_price_sale: 13,
-        quantity_sale: 14
+        gross_price_sale: 12,
+        quantity_sale: 8
+    },
+    {
+        id: 12,
+        transact_id: 6,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 8
+    },
+    {
+        id: 13,
+        transact_id: 6,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 9
+    },
+    {
+        id: 14,
+        transact_id: 7,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 3
+    },
+    {
+        id: 15,
+        transact_id: 7,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 3
+    },
+    {
+        id: 16,
+        transact_id: 8,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 6
+    },
+    {
+        id: 17,
+        transact_id: 8,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 6
+    },
+    {
+        id: 18,
+        transact_id: 9,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 7
+    },
+    {
+        id: 19,
+        transact_id: 9,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 7
+    },
+    {
+        id: 20,
+        transact_id: 10,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 4
+    },
+    {
+        id: 21,
+        transact_id: 11,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 5
+    },
+    {
+        id: 22,
+        transact_id: 12,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 7
+    },
+    {
+        id: 23,
+        transact_id: 12,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 7
+    },
+    {
+        id: 24,
+        transact_id: 13,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 8
+    },
+    {
+        id: 25,
+        transact_id: 13,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 4
+    },
+    {
+        id: 25,
+        transact_id: 14,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 13
+    },
+    {
+        id: 26,
+        transact_id: 15,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 5
+    },
+    {
+        id: 27,
+        transact_id: 16,
+        product_id: 0,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 5
+    },
+    {
+        id: 28,
+        transact_id: 16,
+        product_id: 1,
+        base_price_sale: 10,
+        gross_price_sale: 12,
+        quantity_sale: 8
+    },
+    {
+        id: 29,
+        transact_id: 17,
+        product_id: 2,
+        base_price_sale: 0,
+        gross_price_sale: 1200,
+        quantity_sale: 1
     }
 ]
 
@@ -234,54 +601,96 @@ const provideEstablishmentData = ( userid = "none", establishment_id="none" ) =>
 }
 
 const provideSale = ( idContainer, orderBy="desc" ) => {
-    let establishment_id_arr = [];
-
-    if ( "userid" in idContainer ) {
-
-        employee_data.forEach( emp => {
-
-            if ( emp.userid === idContainer.userid ) establishment_id_arr.push( emp.establishment_id )
-
-        } )
-
-    } 
-    else if ( "establishment_id" in idContainer ) establishment_id_arr.push( idContainer.establishment_id )
-
-    let prod_id_arr = []
-
-    if ( "product_id" in idContainer ) prod_id_arr.push( idContainer.product_id )
-    else {
-        establishment_id_arr.forEach( est_id => {
-    
-            products_data.forEach( prod => {
-    
-                if ( est_id === prod.establishment_id ) prod_id_arr.push( prod.id )
-    
-            } )
-        } )
-    }
-
-    /* checks if product id arr has something, else, return empty */
-    if ( !prod_id_arr.length ) return []
-
     let salesInfo = [];
 
-    prod_id_arr.forEach( prod_id => {
-
+    // transact id is more direct
+    if ( "transact_id" in idContainer ) {
         sales_data.forEach( sale => {
-            if ( sale.product_id === prod_id ) salesInfo.push( {
-                sale_id: sale.id,
-                date: sale.date,
-                base_price_sale: sale.base_price_sale,
-                gross_price_sale: sale.gross_price_sale,
-                quantity_sale: sale.quantity_sale
+            if ( sale.transact_id === idContainer.transact_id ) {
+                let date = "";
+                let paidDate = "";
+
+                transact_data.forEach( trans => {
+                    if ( trans.id === idContainer.transact_id ) {
+                        date = trans.date
+                        paidDate = trans.paidDate
+                    }
+                } )
+
+                salesInfo( {
+                    sale_id: sale.id,
+                    product_id: sale.product_id,
+                    transact_id: sale.transact_id,
+                    date,
+                    paidDate,
+                    base_price_sale: sale.base_price_sale,
+                    gross_price_sale: sale.gross_price_sale,
+                    quantity_sale: sale.quantity_sale,
+                } )
+            }
+        } )
+    } else {
+        let establishment_id_arr = [];
+
+        if ( "userid" in idContainer ) {
+    
+            employee_data.forEach( emp => {
+    
+                if ( emp.userid === idContainer.userid ) establishment_id_arr.push( emp.establishment_id )
+    
             } )
+    
+        } 
+        else if ( "establishment_id" in idContainer ) establishment_id_arr.push( idContainer.establishment_id )
+    
+        let prod_id_arr = []
+    
+        if ( "product_id" in idContainer ) prod_id_arr.push( idContainer.product_id )
+        else {
+            establishment_id_arr.forEach( est_id => {
+        
+                products_data.forEach( prod => {
+        
+                    if ( est_id === prod.establishment_id ) prod_id_arr.push( prod.id )
+        
+                } )
+            } )
+        }
+    
+        /* checks if product id arr has something, else, return empty */
+        if ( !prod_id_arr.length ) return []
+    
+        prod_id_arr.forEach( prod_id => {
+            // let found = false;
+            sales_data.forEach( sale => {
+                if ( sale.product_id === prod_id ) {
+                    let date = "";
+                    let paidDate = "";
+    
+                    transact_data.forEach( trans => {
+                        if ( trans.id === sale.transact_id ) [ date, paidDate ] = [ trans.date, trans.paidDate ]
+                    } )
+    
+                    if ( !date ) return;
+    
+                    salesInfo.push( {
+                        sale_id: sale.id,
+                        product_id: prod_id,
+                        transact_id: sale.transact_id,
+                        date,
+                        paidDate,
+                        base_price_sale: sale.base_price_sale,
+                        gross_price_sale: sale.gross_price_sale,
+                        quantity_sale: sale.quantity_sale
+                    } )
+                }
+            } )
+    
         } )
 
-    } )
-    let orderedSales = [];
+    }
 
-    orderedSales = salesInfo.sort( ( a, b ) => {
+    let orderedSales = salesInfo.sort( ( a, b ) => {
         if ( a.date.slice( 5, 7 ) > b.date.slice( 5, 7 ) ) {
             if ( orderBy === "asc" ) return -1
             else return 1
@@ -301,7 +710,83 @@ const provideSale = ( idContainer, orderBy="desc" ) => {
         return 0
     } )
 
-    return salesInfo;
+    return orderedSales;
 } 
 
-export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale }
+const provideTransacts = ( establishment_id ) => {
+    let transacts = [];
+
+    transact_data.forEach( trans => {
+        if ( trans.establishment_id === establishment_id ) {
+            let saleTotal = 0;
+
+            sales_data.forEach( sale => {
+                if ( sale.transact_id === trans.id ) saleTotal = saleTotal + ( sale.gross_price_sale * sale.quantity_sale );
+            } )
+
+            transacts.push( {
+                transaction_id: trans.id,
+                date: trans.date,
+                saleTotal
+            } )
+        }
+    } )
+
+    return transacts;
+}
+
+const provideCustomers = ( establishment_id=null ) => {
+    const customers = [];
+
+    customer_data.forEach( cust => {
+        if ( cust.establishment_id === establishment_id ) {
+            customers.push( {
+                customer_id: cust.id,
+                customer_name: cust.name,
+                customer_address: cust.address,
+                customer_mobile: cust.mobile
+            } )
+        }
+    } )
+
+    return customers;
+}
+
+const provideSpecificCustomer = customer_id => {
+    const customer = {};
+
+    customer_data.forEach( cust => {
+        if ( cust.id === customer_id ) {
+            customer.customer_id = cust.id;
+            customer.customer_name = cust.name;
+            customer.customer_address = cust.address;
+            customer.customer_mobile = cust.mobile;
+
+        }
+    } )
+
+    const price_point = [];
+
+    customer_price_point_data.forEach( cust_pp => {
+        if ( cust_pp.customer_id === customer_id ) {
+            products_data.forEach( prod => {
+                if ( cust_pp.product_id === prod.id ) {
+                    price_point.push( {
+                        id: cust_pp.id,
+                        product_id: prod.id,
+                        product_name: prod.name,
+                        base_price: prod.base_price,
+                        orig_price: prod.gross_price,
+                        price: cust_pp.price
+                    } )
+                }
+            } )
+        }
+    } )
+
+    customer.price_point = price_point;
+
+    return customer;
+}
+
+export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale, provideTransacts, provideCustomers, provideSpecificCustomer }

@@ -1,0 +1,32 @@
+section.main-section
+{
+    justify-content: center;
+    width: 100%;
+}
+
+section.main-section div.section-inside
+{
+   width: 1800px;
+   min-width: 50%;
+}
+
+div.width-standard
+{
+    margin: 0 10rem;
+}
+
+@media only screen and ( max-width: 1800px )
+{
+    div.width-standard
+    {
+        margin: 0 5rem;
+    }
+}
+
+@media only screen and ( max-width: 1600px )
+{
+    div.width-standard
+    {
+        margin: 0;
+    }
+}

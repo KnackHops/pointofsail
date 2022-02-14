@@ -1,7 +1,8 @@
 div.scanner-con {
-    position: absolute;
-    right: .5rem;
-    bottom: .5rem;
+    position: fixed;
+    right: 2rem;
+    bottom: 1rem;
+    z-index: 9999;
 }
 
 div.scanner-con button {

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import AnyList from "../../../non-hooks/AnyList";
 
-const SalesList = ( { productSale } ) => {
-    const [ salesListDisplay, setSalesList ] = useState( [] )
+const SalesList = ( { parentProductSale } ) => {
     
+    const [ salesListDisplay, setSalesList ] = useState( [] )
     useEffect( () => {
-        if ( productSale ) {
+        if ( parentProductSale ) {
             let _salesListDisplay = [];
 
-            productSale.forEach( prod_s => {
+            parentProductSale.forEach( prod_s => {
                 _salesListDisplay.push( {
                     label: <>
                         <span>Date: { prod_s.date }</span>
@@ -20,7 +20,7 @@ const SalesList = ( { productSale } ) => {
 
             setSalesList( _salesListDisplay )
         }
-    }, [ productSale ] )
+    }, [ parentProductSale ] )
 
     return (
         <div className="sales-list-con">

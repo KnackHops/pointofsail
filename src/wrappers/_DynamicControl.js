@@ -143,8 +143,23 @@ const InputControl = ( { list, objNameTitle, handler, confirmer, submitter } ) =
     )
 }
 
-const DynamicControl = ( { dynamicClass, dynamicDataHandler, thresholdStage=0, arrControl=null, curStage=null, addStageHandler=null, removeStageHandler=null } ) => {
+const confirmPanel = ( { title, details } ) => {
+    return (
+        <div className='confirm-panel-con'>
+            <h4>
+                {
+                    title
+                }
+            </h4>
+            {   
+                details?.length && details.map( ( { _label, _info } ) => <p> <span> { _label } </span> <span> { _info } </span> </p> )
+            }
+        </div>
+    )
 
+}
+
+const DynamicControl = ( { dynamicClass, dynamicDataHandler, thresholdStage=0, arrControl=null, curStage=null, addStageHandler=null, removeStageHandler=null } ) => {
     const btnStageNext = data => {
         dynamicDataHandler( data );
         addStageHandler();
@@ -158,7 +173,8 @@ const DynamicControl = ( { dynamicClass, dynamicDataHandler, thresholdStage=0, a
         <div className={ `dynamic-control-con ${dynamicClass}-control-con` }>
             <div className={`${dynamicClass}-control`}>
                 {
-                    curStage <= thresholdStage && <>
+                    curStage <= thresholdStage &&
+                    <>
                     {
                         !arrControl && !curStage ? "" :
                         <>
@@ -202,11 +218,9 @@ const DynamicControl = ( { dynamicClass, dynamicDataHandler, thresholdStage=0, a
                             handler={ backStage }
                         />
                     }
-                </>
+                    </>
                 }
             </div>
         </div>
     )
 }
-
-export default DynamicControl;

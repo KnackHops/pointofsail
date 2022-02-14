@@ -1,9 +1,60 @@
-div.sales-graph-con {
-    height: 40rem;
+div.sales-graph-con 
+{
+    position: relative;
+    padding: 10rem 0;
     width: 100%;
-    overflow-x: auto;
 }
 
-div.sales-graph-con > div {
-    min-width: 80rem;
+div.title-graph
+{
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    padding: 2rem;
+}
+
+div.graph-con
+{
+    width: 100%;
+    position:relative;
+    overflow-y: hidden;
+    overflow-x: visible;
+}
+
+div.graph-con > div:first-child 
+{
+    width: 100%;
+    padding: .5rem;
+    padding-right: 1rem;
+    min-width: 183.5rem;
+}
+
+div.sales-graph-control 
+{
+    position: absolute;
+    margin-top: 2.5rem;
+    padding: 0 .5rem;
+}
+
+div.sales-graph-days
+{
+    font-size: 1.75rem;
+}
+
+div.sales-graph-days > div
+{
+    margin-left: 2rem;
+}
+
+@media only screen and ( max-width: 540px )
+{
+    div.sales-graph-con 
+    {
+        padding-bottom: 15rem;
+    }
+    div.sales-graph-control
+    {
+        display: flex;
+        flex-direction: column;
+    }
 }
