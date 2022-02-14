@@ -188,109 +188,109 @@ let transact_data = [
     {
         id: 0,
         establishment_id: 0,
-        date: "2022-01-02",
-        paidDate: "2022-01-02"
+        date: "2022-01-18",
+        paidDate: "2022-01-18"
     },
     {
         id: 1,
-        establishment_id: 0,
-        date: "2022-01-05",
-        paidDate: "2022-01-05"
-    },
-    {
-        id: 2,
-        establishment_id: 0,
-        date: "2022-01-07",
-        paidDate: "2022-01-07"
-    },
-    {
-        id: 3,
-        establishment_id: 0,
-        date: "2022-01-08",
-        paidDate: "2022-01-08"
-    },
-    {
-        id: 4,
-        establishment_id: 0,
-        date: "2022-01-10",
-        paidDate: "2022-01-10"
-    },
-    {
-        id: 5,
-        establishment_id: 0,
-        date: "2022-01-12",
-        paidDate: "2022-01-12"
-    },
-    {
-        id: 6,
-        establishment_id: 0,
-        date: "2022-01-13",
-        paidDate: "2022-01-13"
-    },
-    {
-        id: 7,
-        establishment_id: 0,
-        date: "2022-01-14",
-        paidDate: "2022-01-14"
-    },
-    {
-        id: 8,
-        establishment_id: 0,
-        date: "2022-01-16",
-        paidDate: "2022-01-16"
-    },
-    {
-        id: 9,
-        establishment_id: 0,
-        date: "2022-01-19",
-        paidDate: "2022-01-19"
-    },
-    {
-        id: 10,
         establishment_id: 0,
         date: "2022-01-21",
         paidDate: "2022-01-21"
     },
     {
-        id: 11,
+        id: 2,
+        establishment_id: 0,
+        date: "2022-01-23",
+        paidDate: "2022-01-23"
+    },
+    {
+        id: 3,
         establishment_id: 0,
         date: "2022-01-24",
         paidDate: "2022-01-24"
     },
     {
-        id: 12,
+        id: 4,
         establishment_id: 0,
-        date: "2022-01-25",
-        paidDate: "2022-01-25"
+        date: "2022-01-26",
+        paidDate: "2022-01-26"
     },
     {
-        id: 13,
+        id: 5,
         establishment_id: 0,
         date: "2022-01-27",
         paidDate: "2022-01-27"
     },
     {
+        id: 6,
+        establishment_id: 0,
+        date: "2022-01-29",
+        paidDate: "2022-01-29"
+    },
+    {
+        id: 7,
+        establishment_id: 0,
+        date: "2022-01-30",
+        paidDate: "2022-01-30"
+    },
+    {
+        id: 8,
+        establishment_id: 0,
+        date: "2022-02-01",
+        paidDate: "2022-02-01"
+    },
+    {
+        id: 9,
+        establishment_id: 0,
+        date: "2022-02-02",
+        paidDate: "2022-02-02"
+    },
+    {
+        id: 10,
+        establishment_id: 0,
+        date: "2022-02-03",
+        paidDate: "2022-02-03"
+    },
+    {
+        id: 11,
+        establishment_id: 0,
+        date: "2022-02-05",
+        paidDate: "2022-02-05"
+    },
+    {
+        id: 12,
+        establishment_id: 0,
+        date: "2022-02-06",
+        paidDate: "2022-02-06"
+    },
+    {
+        id: 13,
+        establishment_id: 0,
+        date: "2022-02-07",
+        paidDate: "2022-02-07"
+    },
+    {
         id: 14,
         establishment_id: 0,
-        date: "2022-01-28",
-        paidDate: "2022-01-28"
+        date: "2022-02-09",
+        paidDate: "2022-02-09"
     },
     {
         id: 15,
         establishment_id: 0,
-        date: "2022-01-30",
-        paidDate: "2022-01-29"
+        date: "2022-02-10",
+        paidDate: "2022-02-10"
     },
     {
         id: 16,
         establishment_id: 0,
-        date: "2022-01-31",
-        paidDate: "2022-01-30"
+        date: "2022-02-12",
+        paidDate: "2022-02-12"
     },
     {
         id: 17,
         establishment_id: 0,
-        date: "2022-02-01",
+        date: "2022-02-13",
         paidDate: ""
     }
 ]
