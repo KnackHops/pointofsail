@@ -12,7 +12,7 @@ const Establishment = () => {
     const [ establishments, setEstablishments ] = useState( [] );
 
     useEffect( () => {
-        const esList = provideEstablishmentData(user.id);
+        const esList = provideEstablishmentData( user.id );
         setEstablishments( esList )
     }, [] )
 

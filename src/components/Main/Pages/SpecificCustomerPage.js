@@ -16,21 +16,21 @@ const SpecificCustomerPage = () => {
     const [ pricePointDisplay, setPricePoint ] = useState( null );
 
     useEffect( () => {
-        const pricePointDisplay = [];
+        const _pricePointDisplay = [];
 
-        pricePointDisplay.push( {
+        _pricePointDisplay.push( {
             label: <> <span> Product Name </span> <span> Price </span> <span> Original Price </span> </>,
             whichEl: "p"
         } )
 
         customer?.price_point.forEach( pp => {
-            pricePointDisplay.push( {
+            _pricePointDisplay.push( {
                 label: <> <span> { pp.product_name } </span> <span>{ pp.price } </span> <span> { pp.orig_price } </span> </>,
                 whichEl: "p"
             } )
         } )
 
-        setPricePoint( pricePointDisplay );
+        setPricePoint( _pricePointDisplay );
     }, [ customer ] )
 
     return (
@@ -40,7 +40,7 @@ const SpecificCustomerPage = () => {
             <p> Address: { customer?.customer_address } </p>
             <div className="price-point-con">
                 <h5> Custom Prices for this user: </h5>
-                <AnyList arrList={ pricePointDisplay } listClass={ "price-point" } />
+                { pricePointDisplay && <AnyList arrList={ pricePointDisplay } listClass={ "price-point" } /> }
             </div>
         </div>
     )

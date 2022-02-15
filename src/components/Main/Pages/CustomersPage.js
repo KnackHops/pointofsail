@@ -19,10 +19,12 @@ const CustomersPage = () => {
 
     useEffect( () => {
         let _customerListOpen = []
+        
         _customerListOpen.push( {
             label: <> <span> Customer Name </span> <span> Customer Address </span> <span> Customer Mobile Number </span>  </>,
             whichEl: "p"
         } )
+
         customers.forEach( cust => {
             _customerListOpen.push( {
                 label: <> <span> { cust.customer_name } </span> <span> { cust.customer_address } </span> <span> { cust.customer_mobile } </span>  </>,

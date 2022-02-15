@@ -8,12 +8,29 @@ const SalesList = ( { parentProductSale } ) => {
         if ( parentProductSale ) {
             let _salesListDisplay = [];
 
+            _salesListDisplay.push( 
+                { 
+                    label: <>
+                        <span> Date </span>
+                        <span> Base Price </span>
+                        <span> Gross Price </span>
+                        <span> Quantity Sold </span>
+                        <span> Total </span>
+                        <span> Net </span>
+                    </>,
+                    whichEl: "p" 
+                } )
+
             parentProductSale.forEach( prod_s => {
                 _salesListDisplay.push( {
                     label: <>
-                        <span>Date: { prod_s.date }</span>
-                        <span>Base Price: { prod_s.base_price_sale }</span>
-                        <span>Gross Price: { prod_s.gross_price_sale }</span></>,
+                        <span> { prod_s.date } </span>
+                        <span> { prod_s.base_price_sale } </span>
+                        <span> { prod_s.gross_price_sale } </span>
+                        <span> { prod_s.quantity_sale } </span>
+                        <span> { prod_s.gross_price_sale * prod_s.quantity_sale } </span>
+                        <span> { ( prod_s.gross_price_sale  - prod_s.base_price_sale ) * prod_s.quantity_sale } </span>
+                        </>,
                     whichEl: "p"
                 } )
             } )
