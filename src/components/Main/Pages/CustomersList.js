@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AnyList from "../../../non-hooks/AnyList";
-import './CustomersPage.css';
+import './CustomersList.css';
 import { provideCustomers } from "../../../tempFolder/temp";
+import DynamicListWrapper from "./DynamicListWrapper";
 
-const CustomersPage = () => {
+const CustomersList = () => {
     const { establishment_id } = useParams();
 
     const [ customers, setCustomers ] = useState( [] );
     const [ customerDisplay, setCustomerDisplay ] = useState( null );
-    const [ customerListOpen, setCustomerOpen ] = useState( false );
 
     const loadCustomers = () => {
-
         const cust = provideCustomers( Number( establishment_id ) );
         setCustomers( cust );
     }
@@ -38,25 +36,9 @@ const CustomersPage = () => {
         setCustomerDisplay( _customerListOpen );
     }, [ customers ] )
 
-    const customerListHandler = () => {
-        if ( !customers?.length ) loadCustomers()
-
-        setCustomerOpen( !customerListOpen );
-    }
-
     return (
-        <div className="customer-page-con">
-            <p>
-                <button type="button" onClick={ customerListHandler }>
-                    Customers
-                </button>
-            </p>
-            <div className={ `customer-list-con ${ customerListOpen ? "-active" : "" }` }>
-                { customerListOpen && 
-                <AnyList listClass={ "customer-list" } arrList={ customerDisplay } /> }
-            </div>
-        </div>
+        <DynamicListWrapper listClass={ "customer-list" } arrLoader={ loadCustomers } arrCheck={ customers?.length ? true : false } listHeader={ "Customers" } arrDisplay={ customerDisplay } />
     )
 }
 
-export default CustomersPage;
+export default CustomersList;

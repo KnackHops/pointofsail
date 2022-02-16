@@ -43,6 +43,7 @@ const ProductList = ( { productList } ) => {
 
     return (
         <div className="product-list-con">
+            <h3> Inventory </h3>
             <AnyList arrList={ productListDisplay } listClass={ "product-list" }/>
         </div>
     )

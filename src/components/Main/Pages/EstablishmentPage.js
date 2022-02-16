@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, useParams } from "react-router-dom";
-import CustomersPage from "./CustomersPage";
+import CustomersList from "./CustomersList";
 import ProductList from "./ProductList";
 import ProductPage from "./ProductPage";
-import SpecificCustomerPage from "./SpecificCustomerPage";
+import CustomerPage from "./CustomerPage";
 
 const EstablishmentPage = ( { establishments } ) => {
     const { establishment_id } = useParams();
@@ -28,10 +28,10 @@ const EstablishmentPage = ( { establishments } ) => {
                     <Routes>
                         <Route path="" element={ 
                         <>
-                            <CustomersPage />   
                             <ProductList productList={ establishment?.products || null } />
+                            <CustomersList />
                         </> } />
-                        <Route path="/customer/:customer_id" element={ <SpecificCustomerPage /> } />
+                        <Route path="/customer/:customer_id" element={ <CustomerPage /> } />
                         <Route path="/product/:product_id" element={ <ProductPage productList={ establishment?.products || null } establishment_id={ establishment_id || null } />  }/>
                     </Routes>
                 </>

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import AnyList from "../../../non-hooks/AnyList";
 import { provideSpecificCustomer } from "../../../tempFolder/temp";
 
-const SpecificCustomerPage = () => {
+const CustomerPage = () => {
     const { establishment_id, customer_id } = useParams();
     const [ customer, setCustomer ] = useState( null );
 
@@ -72,4 +72,4 @@ const SpecificCustomerPage = () => {
     )
 }
 
-export default SpecificCustomerPage;
+export default CustomerPage;
