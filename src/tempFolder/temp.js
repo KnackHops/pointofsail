@@ -104,32 +104,38 @@ let establishment_data = [
     {
         id: 0,
         name: "admin store",
+        address: "san mariano, isabela",
         mobile: "09123456789"
     },
     {
         id: 1,
         name: "admin store 2",
+        address: "san mariano, isabela",
         mobile: "09987654321"
     }
 ]
 
 let employee_data = [
     {
+        id: 0,
         userid: 0,
         establishment_id: 0,
         role: "owner"
     },
     {
+        id: 1,
         userid: 1,
         establishment_id: 0,
         role: "employee"
     },
     {
+        id: 2,
         userid: 0,
         establishment_id: 1,
         role: "employee"
     },
     {
+        id: 3,
         userid: 1,
         establishment_id: 1,
         role: "owner"
@@ -752,16 +758,15 @@ const provideCustomers = ( establishment_id=null ) => {
     return customers;
 }
 
-const provideSpecificCustomer = customer_id => {
+const provideSpecificCustomer = ( customer_id, establishment_id ) => {
     const customer = {};
 
     customer_data.forEach( cust => {
-        if ( cust.id === customer_id ) {
+        if ( cust.id === customer_id && cust.establishment_id === establishment_id ) {
             customer.customer_id = cust.id;
             customer.customer_name = cust.name;
             customer.customer_address = cust.address;
             customer.customer_mobile = cust.mobile;
-
         }
     } )
 
@@ -772,7 +777,7 @@ const provideSpecificCustomer = customer_id => {
             products_data.forEach( prod => {
                 if ( cust_pp.product_id === prod.id ) {
                     price_point.push( {
-                        id: cust_pp.id,
+                        price_id: cust_pp.id,
                         product_id: prod.id,
                         product_name: prod.name,
                         base_price: prod.base_price,
@@ -785,6 +790,45 @@ const provideSpecificCustomer = customer_id => {
     } )
 
     customer.price_point = price_point;
+
+    const supply = [];
+
+    customer_supply_data.forEach( cust_sup => {
+        if ( cust_sup.customer_id === customer_id ) {
+            // found customer supply
+            // now we find the product
+            // start by finding the sale through the transact id
+            // then we get the product_id
+            let product_id;
+
+            sales_data.forEach( sale => {
+                if ( sale.transact_id === cust_sup.transact_id ) {
+                    product_id = sale.product_id;
+                }
+            } )
+
+            let dues = 0;
+
+            due_data.forEach( due => {
+                if ( due.transact_id === cust_sup.transact_id ) dues = dues + 1
+            } )
+
+            products_data.forEach( prod => {
+                if ( prod.id === product_id ) {
+                    supply.push( {
+                        product_id,
+                        product_name: prod.name,
+                        date: cust_sup.date,
+                        interest: cust_sup.interest,
+                        time_span: cust_sup.time_span,
+                        dues
+                    } )
+                }
+            } )
+        }
+    } )
+
+    customer.supply = supply;
 
     return customer;
 }
