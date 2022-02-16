@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import './CustomersList.css';
 import { provideCustomers } from "../../../tempFolder/temp";
-import DynamicListWrapper from "./DynamicListWrapper";
+import DynamicListButton from "./DynamicListButton";
 
 const CustomersList = () => {
     const { establishment_id } = useParams();
@@ -16,7 +16,7 @@ const CustomersList = () => {
     }
 
     useEffect( () => {
-        let _customerListOpen = []
+        const _customerListOpen = []
         
         _customerListOpen.push( {
             label: <> <span> Customer Name </span> <span> Customer Address </span> <span> Customer Mobile Number </span>  </>,
@@ -37,7 +37,7 @@ const CustomersList = () => {
     }, [ customers ] )
 
     return (
-        <DynamicListWrapper listClass={ "customer-list" } arrLoader={ loadCustomers } arrCheck={ customers?.length ? true : false } listHeader={ "Customers" } arrDisplay={ customerDisplay } />
+        <DynamicListButton listClass={ "customer-list" } arrLoader={ loadCustomers } arrCheck={ customers?.length ? true : false } listHeader={ "Customers" } arrDisplay={ customerDisplay } />
     )
 }
 

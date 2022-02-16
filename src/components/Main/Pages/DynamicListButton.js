@@ -1,8 +1,8 @@
 import { useState } from "react";
 import AnyList from "../../../non-hooks/AnyList";
-import './DynamicListWrapper.css';
+import './DynamicListButton.css';
 
-const DynamicListWrapper = ( { listClass, arrLoader, arrCheck, listHeader, arrDisplay } ) => {
+const DynamicListButton = ( { listClass, arrLoader, arrCheck, listHeader, arrDisplay } ) => {
     const [ isOpen, setIsOpen ] = useState( false );
 
     const listOpener = e => {
@@ -29,4 +29,4 @@ const DynamicListWrapper = ( { listClass, arrLoader, arrCheck, listHeader, arrDi
     )
 }
 
-export default DynamicListWrapper;
+export default DynamicListButton;
