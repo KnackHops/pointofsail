@@ -833,4 +833,37 @@ const provideSpecificCustomer = ( customer_id, establishment_id ) => {
     return customer;
 }
 
-export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale, provideTransacts, provideCustomers, provideSpecificCustomer }
+const provideEmployees = ( establishment_id ) => {
+    const employees = [];
+
+    employee_data.forEach( emp => {
+        if ( emp.establishment_id === establishment_id ) 
+        employees.push( {
+            employee_id: emp.id,
+            userid: emp.userid,
+            role: emp.role
+        } )
+    } )
+
+    employees.forEach( ( emp, i ) => {
+        user_data.forEach( user => {
+            if ( emp.userid === user.id ) employees[ i ].employee_name = user.name
+        } )
+    } )
+
+    return employees;
+}
+
+export { 
+    login_data, 
+    user_data, 
+    establishment_data, 
+    employee_data, 
+    products_data, 
+    sales_data, 
+    provideEstablishmentData, 
+    provideSale, 
+    provideTransacts, 
+    provideCustomers, 
+    provideSpecificCustomer, 
+    provideEmployees }

@@ -4,6 +4,7 @@ import CustomersList from "./CustomersList";
 import ProductList from "./ProductList";
 import ProductPage from "./ProductPage";
 import CustomerPage from "./CustomerPage";
+import EmployeesList from "./EmployeesList.js";
 
 const EstablishmentPage = ( { establishments } ) => {
     const { establishment_id } = useParams();
@@ -28,6 +29,7 @@ const EstablishmentPage = ( { establishments } ) => {
                     <Routes>
                         <Route path="" element={ 
                         <>
+                            <EmployeesList />
                             <ProductList productList={ establishment?.products || null } />
                             <CustomersList />
                         </> } />

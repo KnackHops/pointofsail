@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { provideEmployees } from "../../../tempFolder/temp";
 import DynamicListButton from "./DynamicListButton"
 
 const EmployeesList = () => {
@@ -9,24 +10,27 @@ const EmployeesList = () => {
     const [ employeesDisplay, setEmployeesDisplay ] = useState( null );
 
     const loadEmployees = () => {
-        setEmployees( [] );
+        const _employees = provideEmployees( Number( establishment_id ) );
+
+        setEmployees( _employees );
     }
 
     useEffect( () => {
         const _employeesDisplay = [];
-
+        
         _employeesDisplay.push( { 
-            label: <> <span> Employee ID </span> <span> Employee Name </span> </>,
+            label: <> <span> Employee ID </span> <span> Employee Name </span> <span> Role </span> </>,
             whichEl: "p"
          } )
 
         employees.forEach( emp => {
             _employeesDisplay.push( {
-                label: <> <span> { emp?.employee_id } </span> <span> { emp?.employee_name } </span> </>
+                label: <> <span> { emp?.employee_id } </span> <span> { emp?.employee_name } </span> <span> { emp?.role } </span> </>,
+                whichEl: "p"
             } )
         } )
 
-        setEmployeesDisplay( [] );
+        setEmployeesDisplay( _employeesDisplay );
     }, [ employees ] )
 
     return (
