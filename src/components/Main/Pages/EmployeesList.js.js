@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import AnyList from "../../../non-hooks/AnyList";
+import DynamicOpener from "../../../non-hooks/DynamicOpener";
 import { provideEmployees } from "../../../tempFolder/temp";
-import DynamicListButton from "./DynamicListButton"
 
 const EmployeesList = () => {
     const { establishment_id } = useParams();
@@ -34,7 +35,9 @@ const EmployeesList = () => {
     }, [ employees ] )
 
     return (
-        <DynamicListButton listClass={ "employee-list" } arrLoader={ loadEmployees } arrCheck={ employees?.length ? true : false } listHeader={ "Employees" } arrDisplay={ employeesDisplay } />
+        <DynamicOpener dynamicClass="employee-list" loadHandler={ loadEmployees } btnLabel={ "Employees" }>
+            <AnyList arrList={ employeesDisplay } listClass={ "employee-list" } />
+        </DynamicOpener>
     )
 }
 

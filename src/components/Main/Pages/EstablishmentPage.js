@@ -7,6 +7,8 @@ import CustomerPage from "./CustomerPage";
 import EmployeesList from "./EmployeesList.js";
 
 const EstablishmentPage = ( { establishments } ) => {
+    // Edit establishment details to be added as well
+    
     const { establishment_id } = useParams();
     const [ establishment, setEstablishment ] = useState( null );
 

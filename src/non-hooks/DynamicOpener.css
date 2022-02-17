@@ -1,4 +1,4 @@
-.dynamic-list-con > .-active {
+.dynamic-con > div.-active {
     height: 15rem;
     width: 100%;
     background-color: aliceblue;

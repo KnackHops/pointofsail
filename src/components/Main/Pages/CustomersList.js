@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import './CustomersList.css';
 import { provideCustomers } from "../../../tempFolder/temp";
-import DynamicListButton from "./DynamicListButton";
+import DynamicOpener from "../../../non-hooks/DynamicOpener";
+import AnyList from "../../../non-hooks/AnyList";
 
 const CustomersList = () => {
     const { establishment_id } = useParams();
@@ -37,7 +38,9 @@ const CustomersList = () => {
     }, [ customers ] )
 
     return (
-        <DynamicListButton listClass={ "customer-list" } arrLoader={ loadCustomers } arrCheck={ customers?.length ? true : false } listHeader={ "Customers" } arrDisplay={ customerDisplay } />
+        <DynamicOpener dynamicClass="customer-list" loadHandler={ loadCustomers } btnLabel={ "Customers" } >
+            <AnyList arrList={ customerDisplay } listClass={ "customer-list" } />
+        </DynamicOpener>
     )
 }
 

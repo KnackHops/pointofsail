@@ -8,6 +8,7 @@ import EstablishmentPage from "./EstablishmentPage";
 import EstablishmentWrapper from "./EstablishmentWrapper";
 
 const Establishment = () => {
+    // Create establishment
     const { user } = useContext( UserContext );
     const [ establishments, setEstablishments ] = useState( [] );
 
