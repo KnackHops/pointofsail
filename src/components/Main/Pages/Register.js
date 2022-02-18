@@ -11,29 +11,34 @@ const Register = () => {
         return (
             [
                 {
-                    _label: "Name",
-                    _id: "name",
-                    _type: "text"
+                    label: "Name",
+                    id: "name",
+                    type: "text",
+                    aria: false
                 },
                 {
-                    _label: "Username",
-                    _id: "username",
-                    _type: "text"
+                    label: "Username",
+                    id: "username",
+                    type: "text",
+                    aria: false
                 },
                 {
-                    _label: "Password",
-                    _id: "password",
-                    _type: "password"
+                    label: "Password",
+                    id: "password",
+                    type: "password",
+                    aria: false
                 },
                 {
-                    _label: "Email",
-                    _id: "email",
-                    _type: "email"
+                    label: "Email",
+                    id: "email",
+                    type: "email",
+                    aria: false
                 },
                 {
-                    _label: "Mobile",
-                    _id: "mobile",
-                    _type: "tel"
+                    label: "Mobile",
+                    id: "mobile",
+                    type: "tel",
+                    aria: false
                 }
             ]
         )
@@ -43,8 +48,8 @@ const Register = () => {
         return (
             [
                 {
-                    _label: "Register",
-                    _type: "submit",
+                    label: "Register",
+                    type: "submit",
                     handler: registerHandler
                 }
             ]
@@ -53,7 +58,7 @@ const Register = () => {
 
     return (
         <SectionWrappers>
-            <FormPanel { ...{ arrInputs, arrBtns } } />
+            <FormPanel { ...{ arrInputs, arrBtns } } formClass={ "register"} />
             <LoginRegisterSwitch />
         </SectionWrappers>
     )

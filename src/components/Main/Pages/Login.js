@@ -10,14 +10,16 @@ const Login = () => {
     const arrInputs = useMemo( () => {
         return [
             {
-                _label: "Username",
-                _id: "username",
-                _type: "text",
+                label: "Username",
+                id: "username",
+                type: "text",
+                aria: false
             },
             {
-                _label: "Password",
-                _id: "password",
-                _type: "password",
+                label: "Password",
+                id: "password",
+                type: "password",
+                aria: false
             }
         ]
     }, [] )
@@ -25,8 +27,8 @@ const Login = () => {
     const arrBtns = useMemo( () => {
         return [
             {
-                _label: "Log in",
-                _type: "submit",
+                label: "Log in",
+                type: "submit",
                 handler: logInHandler
             }
         ]
@@ -34,7 +36,7 @@ const Login = () => {
 
     return (
         <SectionWrappers>
-            <FormPanel { ...{ arrInputs, arrBtns } } />
+            <FormPanel { ...{ arrInputs, arrBtns } } formClass={ "login" } />
             <LoginRegisterSwitch />
         </SectionWrappers>
     )
