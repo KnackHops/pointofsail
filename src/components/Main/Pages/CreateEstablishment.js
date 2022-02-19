@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import AnyList from "../../../non-hooks/AnyList";
 import DynamicOpener from "../../../non-hooks/DynamicOpener";
 import SearchBox from "../../../non-hooks/SearchBox";
 import { findUser } from "../../../tempFolder/temp";
@@ -7,9 +8,34 @@ import FormPanel from "./FormPanel";
 const CreateEstablishment = () => {
     const [ whichDisplay, setDisplay ] = useState( 0 );
     const [ arrList, setArrList ] = useState( [] );
+    const [ userAdded, setUserAdded ] = useState( [] );
 
-    const searchedUser = userid => {
-        console.log( userid )
+    const removeUser = userid => {
+        const _userAdded = [].concat( userAdded ).filter( user => user.userid !== userid )
+
+        setUserAdded( _userAdded )
+    }
+
+    const addUser = userid => {
+        const _userAdded = [].concat( userAdded );
+
+        arrList.forEach( user => {
+            if ( user.userid === userid ) {
+                _userAdded.push( {
+                    userid,
+                    label: user.label,
+                    whichEl: "btn",
+                    passPara: {
+                        onClick: () => removeUser( userid ),
+                        type: "button"
+                    }
+                } )
+            }
+        } )
+
+        setArrList( arrList.slice( 0, 1) )
+
+        setUserAdded( _userAdded );
     }
 
     const searchUsers = searchVal => {
@@ -24,24 +50,24 @@ const CreateEstablishment = () => {
          } )
 
         users.forEach( user => {
+            // checks if the user is in the userAdded
+            const userExist = userAdded.find( _user => _user.userid === user.userid );
+
+            if ( userExist ) return
+            
             _arrList.push( {
+                userid: user.userid,
                 label: `${ user.name } / ${ user.username }`,
                 whichEl: "btn",
                 passPara: {
                     type: "button",
-                    onClick: () => searchedUser( user.userid )
+                    onClick: () => addUser( user.userid )
                 }
             } )
         } )
 
         setArrList( _arrList )
     }
-
-    useEffect( () => {
-        if ( whichDisplay === 1 ) {
-
-        }
-    }, [ whichDisplay ] )
 
     const arrInputs = useMemo( () => {
 
@@ -102,6 +128,13 @@ const CreateEstablishment = () => {
             { whichDisplay === 0 && <FormPanel { ...{ arrInputs, arrBtns } } formClass={ "create-establishment" } /> }
             { whichDisplay === 1 && 
             <>
+                <div className="added-users-con">
+                    <h4> Added Users </h4>
+                    <p>
+                        Click users in this list to remove them
+                    </p>
+                    <AnyList arrList={ userAdded } listClass={ "added-users" } />
+                </div>
                 <SearchBox searchLabel="Add user for the company through their username/name" searchid="create-establishment" listDock={true} arrList={ arrList } searchHandler={ searchUsers } />
                 <p>
                     <button type="button" onClick={ () => setDisplay( whichDisplay + 1 ) }> Done </button>
