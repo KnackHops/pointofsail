@@ -46,6 +46,7 @@ const FormPanel = ( { arrInputs, arrBtns, formClass="" } ) => {
                                 <input 
                                     type={ inp.type } 
                                     id={ inp.id } 
+                                    title={ inp.title }
                                     value={ inputs?.[ inp.id ] || "" } 
                                     aria-label={ inp.aria ? inp.label : "" }
                                     onChange={ e => setInputs( { ...inputs, [ inp.id ]: e.target.value } ) }/>
