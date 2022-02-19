@@ -1,8 +1,6 @@
-import { useContext, useEffect, useMemo, useState } from "react"
-import { RouteContext } from "../../../wrappers/LocationMonitor";
+import { useMemo, useState } from "react"
 
-const FormPanel = ( { arrInputs, arrBtns, extraClass="" } ) => {
-    const { curRoute } = useContext( RouteContext );
+const FormPanel = ( { arrInputs, arrBtns, formClass="" } ) => {
     const [ inputs, setInputs ] = useState( false );
 
     const initInputs = useMemo( () => {
@@ -17,36 +15,50 @@ const FormPanel = ( { arrInputs, arrBtns, extraClass="" } ) => {
         return inputObj;
     }, [] )
 
-    const btnHandler = ( e, handler, type ) => {
+    const btnHandler = ( e, handler ) => {
         e.preventDefault()
 
         const inputVal = inputs;
 
         setInputs( initInputs )
-
-        if ( type === "submit" ) handler( inputVal )
-        else if ( type === "button" ) handler()
+        
+        if ( handler ) handler( inputVal )
     }
 
     return ( 
-        <div className={`${ curRoute.processed }-form-con`}>
+        <div className={`${ formClass }-form-con`}>
             { inputs &&
-                <form className={`${ curRoute.processed }-form ${ extraClass }`}>
+                <form className={`${ formClass }-form`}>
                     {
+                        // arr inputs has
+                        // id, type, aria, and label inside
                         arrInputs.map( ( inp, i ) => {
                             return <p key={ i }>
-                                <label htmlFor={ inp._id }>
-                                    { inp._label }
-                                </label>
-                                <input type={ inp._type } id={ inp._id } value={ inputs?.[ inp._id ] || "" } onChange={ e => setInputs( { ...inputs, [ inp._id ]: e.target.value } ) }/>
+
+                                {
+                                    // if not aria then we display label
+                                    !inp.aria && 
+                                    <label htmlFor={ inp.id }>
+                                        { inp.label }
+                                    </label> 
+                                }
+
+                                <input 
+                                    type={ inp.type } 
+                                    id={ inp.id } 
+                                    title={ inp.title }
+                                    value={ inputs?.[ inp.id ] || "" } 
+                                    aria-label={ inp.aria ? inp.label : "" }
+                                    onChange={ e => setInputs( { ...inputs, [ inp.id ]: e.target.value } ) }/>
                             </p>
                         } )
                     }
                     <p>
                         {
+                            // arr btns
                             arrBtns.map( ( btn, i ) => {
-                                return <button key={ i } type={ btn._type } onClick={ e => btnHandler( e, btn.handler, btn._type ) } >
-                                    { btn._label }
+                                return <button key={ i } type={ btn.type } onClick={ e => btnHandler( e, btn.handler ) } >
+                                    { btn.label }
                                 </button>
                             } )
                         }

@@ -9,7 +9,7 @@ const AnyList = ( { arrList, listClass, fallbackDisplay="list empty!" } ) => {
     // parentsPara, parameters passed on the paragraph holding the item inside
     return (
         <>
-        { arrList.length ? 
+        { arrList?.length ? 
             <ul className={ listClass }>
                 {
                     arrList.map( ( item, i ) => {

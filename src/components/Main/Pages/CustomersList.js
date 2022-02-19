@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AnyList from "../../../non-hooks/AnyList";
-import './CustomersPage.css';
+import './CustomersList.css';
 import { provideCustomers } from "../../../tempFolder/temp";
+import DynamicOpener from "../../../non-hooks/DynamicOpener";
+import AnyList from "../../../non-hooks/AnyList";
 
-const CustomersPage = () => {
+const CustomersList = () => {
     const { establishment_id } = useParams();
 
     const [ customers, setCustomers ] = useState( [] );
     const [ customerDisplay, setCustomerDisplay ] = useState( null );
-    const [ customerListOpen, setCustomerOpen ] = useState( false );
 
     const loadCustomers = () => {
-
         const cust = provideCustomers( Number( establishment_id ) );
         setCustomers( cust );
     }
 
     useEffect( () => {
-        let _customerListOpen = []
+        const _customerListOpen = []
+        
         _customerListOpen.push( {
             label: <> <span> Customer Name </span> <span> Customer Address </span> <span> Customer Mobile Number </span>  </>,
             whichEl: "p"
         } )
+
         customers.forEach( cust => {
             _customerListOpen.push( {
                 label: <> <span> { cust.customer_name } </span> <span> { cust.customer_address } </span> <span> { cust.customer_mobile } </span>  </>,
@@ -36,25 +37,11 @@ const CustomersPage = () => {
         setCustomerDisplay( _customerListOpen );
     }, [ customers ] )
 
-    const customerListHandler = () => {
-        if ( !customers?.length ) loadCustomers()
-
-        setCustomerOpen( !customerListOpen );
-    }
-
     return (
-        <div className="customer-page-con">
-            <p>
-                <button type="button" onClick={ customerListHandler }>
-                    Customers
-                </button>
-            </p>
-            <div className={ `customer-list-con ${ customerListOpen ? "-active" : "" }` }>
-                { customerListOpen && 
-                <AnyList listClass={ "customer-list" } arrList={ customerDisplay } /> }
-            </div>
-        </div>
+        <DynamicOpener dynamicClass="customer-list" loadHandler={ loadCustomers } btnLabel={ "Customers" } >
+            <AnyList arrList={ customerDisplay } listClass={ "customer-list" } />
+        </DynamicOpener>
     )
 }
 
-export default CustomersPage;
+export default CustomersList;

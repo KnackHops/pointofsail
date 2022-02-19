@@ -1,0 +1,6 @@
+.dynamic-con > div.-active {
+    height: 15rem;
+    width: 100%;
+    background-color: aliceblue;
+    overflow-x: hidden;
+}

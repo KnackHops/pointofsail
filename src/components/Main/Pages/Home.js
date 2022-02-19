@@ -19,7 +19,7 @@ const Home = () => {
     }, [] )
 
     return (
-        <SectionWrappers sectionTitle={ <> <h1> Home </h1> <h2> Sales </h2> </> }>
+        <SectionWrappers sectionTitle={ <h1> Home </h1> }>
             { productSale &&
                 <>
                     {/* <SalesGraph titleGraph={ "Admin view" } parentProductSale={ productSale } cSelect={ true } nextPrevBtns={ true } colors={ [ "green", "orange", "orange", "green", "red", "red", "blue" ] } /> */}

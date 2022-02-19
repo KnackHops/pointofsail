@@ -104,32 +104,38 @@ let establishment_data = [
     {
         id: 0,
         name: "admin store",
+        address: "san mariano, isabela",
         mobile: "09123456789"
     },
     {
         id: 1,
         name: "admin store 2",
+        address: "san mariano, isabela",
         mobile: "09987654321"
     }
 ]
 
 let employee_data = [
     {
+        id: 0,
         userid: 0,
         establishment_id: 0,
         role: "owner"
     },
     {
+        id: 1,
         userid: 1,
         establishment_id: 0,
         role: "employee"
     },
     {
+        id: 2,
         userid: 0,
         establishment_id: 1,
         role: "employee"
     },
     {
+        id: 3,
         userid: 1,
         establishment_id: 1,
         role: "owner"
@@ -752,16 +758,15 @@ const provideCustomers = ( establishment_id=null ) => {
     return customers;
 }
 
-const provideSpecificCustomer = customer_id => {
+const provideSpecificCustomer = ( customer_id, establishment_id ) => {
     const customer = {};
 
     customer_data.forEach( cust => {
-        if ( cust.id === customer_id ) {
+        if ( cust.id === customer_id && cust.establishment_id === establishment_id ) {
             customer.customer_id = cust.id;
             customer.customer_name = cust.name;
             customer.customer_address = cust.address;
             customer.customer_mobile = cust.mobile;
-
         }
     } )
 
@@ -772,7 +777,7 @@ const provideSpecificCustomer = customer_id => {
             products_data.forEach( prod => {
                 if ( cust_pp.product_id === prod.id ) {
                     price_point.push( {
-                        id: cust_pp.id,
+                        price_id: cust_pp.id,
                         product_id: prod.id,
                         product_name: prod.name,
                         base_price: prod.base_price,
@@ -786,7 +791,134 @@ const provideSpecificCustomer = customer_id => {
 
     customer.price_point = price_point;
 
+    const supply = [];
+
+    customer_supply_data.forEach( cust_sup => {
+        if ( cust_sup.customer_id === customer_id ) {
+            // found customer supply
+            // now we find the product
+            // start by finding the sale through the transact id
+            // then we get the product_id
+            let product_id;
+
+            sales_data.forEach( sale => {
+                if ( sale.transact_id === cust_sup.transact_id ) {
+                    product_id = sale.product_id;
+                }
+            } )
+
+            let dues = 0;
+
+            due_data.forEach( due => {
+                if ( due.transact_id === cust_sup.transact_id ) dues = dues + 1
+            } )
+
+            products_data.forEach( prod => {
+                if ( prod.id === product_id ) {
+                    supply.push( {
+                        product_id,
+                        product_name: prod.name,
+                        date: cust_sup.date,
+                        interest: cust_sup.interest,
+                        time_span: cust_sup.time_span,
+                        dues
+                    } )
+                }
+            } )
+        }
+    } )
+
+    customer.supply = supply;
+
     return customer;
 }
 
-export { login_data, user_data, establishment_data, employee_data, products_data, sales_data, provideEstablishmentData, provideSale, provideTransacts, provideCustomers, provideSpecificCustomer }
+const provideEmployees = ( establishment_id ) => {
+    const employees = [];
+
+    employee_data.forEach( emp => {
+        if ( emp.establishment_id === establishment_id ) 
+        employees.push( {
+            employee_id: emp.id,
+            userid: emp.userid,
+            role: emp.role
+        } )
+    } )
+
+    employees.forEach( ( emp, i ) => {
+        user_data.forEach( user => {
+            if ( emp.userid === user.id ) employees[ i ].employee_name = user.name
+        } )
+    } )
+
+    return employees;
+}
+
+const findUser = ( val ) => {
+    const users = [];
+
+    login_data.forEach( ( { userid, username } ) => {
+        // checks if val is included on the username of this user
+        // we then add it to the users
+        if ( username.includes( val ) ) {
+            users.push( {
+                userid,
+                username
+            } )
+        }
+    } )
+
+    user_data.forEach( _user => {
+        let doesntExist = true;
+
+        // first check if we already got the user through username filter
+        users.forEach( user => {
+            if ( user.userid === _user.id  ) doesntExist = false
+        } )
+
+        // means we are  clear
+        if ( doesntExist ) {
+            // we see if this matches the val
+            if ( _user.name.includes( val ) ) {
+                // if it does, get the information, specifically to this user
+                const { userid, username } = login_data.find( log_user => log_user.userid === _user.id );
+                
+                // we pass the user info
+                users.push( {
+                    userid,
+                    username,
+                    name: _user.name,
+                    mobile: _user.mobile,
+                    address: _user.address
+                } )
+            }
+        }
+        // means we are not clear, and we just add extra info for this user
+        else {
+            users.forEach( ( user, i ) => {
+                if ( user.userid === _user.id && !( "name" in user ) ) {
+                    users[i].name = _user.name
+                    users[i].mobile = _user.mobile
+                    users[i].address = _user.address
+                }
+            } )
+        }
+    } )
+
+    return users;
+}
+
+export { 
+    login_data, 
+    user_data, 
+    establishment_data, 
+    employee_data, 
+    products_data, 
+    sales_data, 
+    provideEstablishmentData, 
+    provideSale, 
+    provideTransacts, 
+    provideCustomers, 
+    provideSpecificCustomer, 
+    provideEmployees,
+    findUser }

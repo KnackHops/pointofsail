@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
 const initCur = {
     processed: "",
@@ -50,18 +51,37 @@ const subRouteIndexes = {
     ],
     "establishment": [
         {
-            paths: "lishment/own",
+            paths: "/establishment/own",
             processed: "own"
+        },
+        {
+            paths: "/establishment/id",
+            processed: "specific"
         }
     ]
 }
 
 const RouteContext = createContext();
 
+const BackButton = () => {
+    const backFunc = e => {
+        e.preventDefault();
+
+        const history = createBrowserHistory( window );
+
+        history?.back();
+    }
+
+    return <p>
+        <button type="button" onClick={ backFunc }>
+            Back
+        </button>
+    </p>
+}
+
 const LocationMonitor = ( { children } ) => {
     const [ curRoute, setCurRoute ] = useState( initCur );
     const [ subRoute, setSubRoute ] = useState("")
-
     const { pathname } = useLocation();
 
     const curRouteIndexer = () => {
@@ -134,4 +154,4 @@ const LocationMonitor = ( { children } ) => {
 }
 
 export default LocationMonitor;
-export { RouteContext };
+export { RouteContext, BackButton };
