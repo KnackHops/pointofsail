@@ -854,6 +854,60 @@ const provideEmployees = ( establishment_id ) => {
     return employees;
 }
 
+const findUser = ( val ) => {
+    const users = [];
+
+    login_data.forEach( ( { userid, username } ) => {
+        // checks if val is included on the username of this user
+        // we then add it to the users
+        if ( username.includes( val ) ) {
+            users.push( {
+                userid,
+                username
+            } )
+        }
+    } )
+
+    user_data.forEach( _user => {
+        let doesntExist = true;
+
+        // first check if we already got the user through username filter
+        users.forEach( user => {
+            if ( user.userid === _user.id  ) doesntExist = false
+        } )
+
+        // means we are  clear
+        if ( doesntExist ) {
+            // we see if this matches the val
+            if ( _user.name.includes( val ) ) {
+                // if it does, get the information, specifically to this user
+                const { userid, username } = login_data.find( log_user => log_user.userid === _user.id );
+                
+                // we pass the user info
+                users.push( {
+                    userid,
+                    username,
+                    name: _user.name,
+                    mobile: _user.mobile,
+                    address: _user.address
+                } )
+            }
+        }
+        // means we are not clear, and we just add extra info for this user
+        else {
+            users.forEach( ( user, i ) => {
+                if ( user.userid === _user.id && !( "name" in user ) ) {
+                    users[i].name = _user.name
+                    users[i].mobile = _user.mobile
+                    users[i].address = _user.address
+                }
+            } )
+        }
+    } )
+
+    return users;
+}
+
 export { 
     login_data, 
     user_data, 
@@ -866,4 +920,5 @@ export {
     provideTransacts, 
     provideCustomers, 
     provideSpecificCustomer, 
-    provideEmployees }
+    provideEmployees,
+    findUser }

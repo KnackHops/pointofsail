@@ -1,9 +1,47 @@
 import { useEffect, useMemo, useState } from "react";
 import DynamicOpener from "../../../non-hooks/DynamicOpener";
+import SearchBox from "../../../non-hooks/SearchBox";
+import { findUser } from "../../../tempFolder/temp";
 import FormPanel from "./FormPanel";
 
 const CreateEstablishment = () => {
     const [ whichDisplay, setDisplay ] = useState( 0 );
+    const [ arrList, setArrList ] = useState( [] );
+
+    const searchedUser = userid => {
+        console.log( userid )
+    }
+
+    const searchUsers = searchVal => {
+        // fetch users from api
+        const users = searchVal ? findUser( searchVal ) : [];
+
+        const _arrList = [];
+
+        _arrList.push( { 
+            label: `Name / Username`,
+            whichEl: "p"
+         } )
+
+        users.forEach( user => {
+            _arrList.push( {
+                label: `${ user.name } / ${ user.username }`,
+                whichEl: "btn",
+                passPara: {
+                    type: "button",
+                    onClick: () => searchedUser( user.userid )
+                }
+            } )
+        } )
+
+        setArrList( _arrList )
+    }
+
+    useEffect( () => {
+        if ( whichDisplay === 1 ) {
+
+        }
+    }, [ whichDisplay ] )
 
     const arrInputs = useMemo( () => {
 
@@ -62,7 +100,13 @@ const CreateEstablishment = () => {
         <DynamicOpener dynamicClass="create-establishment" btnLabel="Create Establishment Entry">
             <h4> Create an establishment here </h4>
             { whichDisplay === 0 && <FormPanel { ...{ arrInputs, arrBtns } } formClass={ "create-establishment" } /> }
-            { whichDisplay === 1 && <p> 1 </p> }
+            { whichDisplay === 1 && 
+            <>
+                <SearchBox searchLabel="Add user for the company through their username/name" searchid="create-establishment" listDock={true} arrList={ arrList } searchHandler={ searchUsers } />
+                <p>
+                    <button type="button" onClick={ () => setDisplay( whichDisplay + 1 ) }> Done </button>
+                </p>
+            </> }
             { whichDisplay !== 0 && 
             <div className="btn-con">
                 <p className="back-btn-con"> <button type="button" onClick={ backDisplay } > Back </button> </p>
